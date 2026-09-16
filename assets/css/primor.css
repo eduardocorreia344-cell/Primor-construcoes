@@ -84,34 +84,26 @@ h1, h2, h3 {
   padding: 0 3px;
 }
 
-/* --- Wordmark -------------------------------------------------------------
-   Reproducao tipografica em Poppins, proxima da logo. Quando o arquivo
-   oficial estiver em /assets/img/logo-primor.svg, trocar o bloco .marca do
-   HTML por: <img src="/assets/img/logo-primor.svg" alt="PRIMOR Empreendimentos">
+/* --- Marca ---------------------------------------------------------------
+   O lockup da PRIMOR e quase quadrado (hexagono acima do wordmark), nao
+   horizontal. Por isso o header e mais alto que o padrao: num header de 70px
+   a logo caberia com ~55px de largura e "PRIMOR" ficaria ilegivel.
    ------------------------------------------------------------------------- */
-.marca { display: inline-flex; align-items: flex-start; gap: 7px; text-decoration: none; line-height: 1; }
-.marca-texto { display: flex; flex-direction: column; }
-.marca-texto b {
-  font-size: 22px; font-weight: 800; letter-spacing: .015em; color: var(--preto);
-}
-.marca-texto span {
-  font-size: 8px; letter-spacing: .34em; text-transform: uppercase;
-  color: var(--cinza-500); margin-top: 5px; font-weight: 400;
-}
-.marca .hex { width: 15px; height: 17.3px; margin-top: 1px; flex: none; }
-.marca .hex path { fill: var(--vermelho); }
+.marca { display: inline-flex; text-decoration: none; line-height: 0; }
+.marca img { height: 76px; width: auto; }
+.rodape .marca img { height: 78px; }
+@media (max-width: 640px) { .marca img { height: 58px; } }
 
-.marca-inversa .marca-texto b { color: #fff; }
-.marca-inversa .marca-texto span { color: rgba(255,255,255,.5); }
-
-/* --- Header ---------------------------------------------------------------- */
+/* --- Header ----------------------------------------------------------------
+   104px porque a logo e um lockup quadrado: abaixo de ~76px de altura o
+   "PRIMOR" vira borrao e o "EMPREENDIMENTOS" some.                           */
 .topo {
   position: sticky; top: 0; z-index: 50;
   background: rgba(255,255,255,.93);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--linha);
 }
-.topo .wrap { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 16px; }
+.topo .wrap { display: flex; align-items: center; justify-content: space-between; height: 104px; gap: 16px; }
 .topo nav { display: flex; align-items: center; gap: 28px; }
 
 /* :not(.btn) e obrigatorio: sem isso este seletor (0,2,1) vence .btn-primario
@@ -121,6 +113,7 @@ h1, h2, h3 {
 }
 .topo nav a:not(.btn):hover { color: var(--vermelho); }
 @media (max-width: 660px) { .topo nav a.oculta-mobile { display: none; } }
+@media (max-width: 640px) { .topo .wrap { height: 84px; } }
 
 /* --- Botoes ---------------------------------------------------------------- */
 .btn {

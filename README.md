@@ -45,26 +45,30 @@ Dois itens ainda a acertar contra o arquivo original:
 
 ## Logo
 
-**O header e o rodape ainda NAO usam a logo da PRIMOR.** Usam um wordmark
-provisorio: "PRIMOR / EMPREENDIMENTOS" em Poppins com um hexagono SVG liso ao
-lado. Nao e a marca — o hexagono real tem monograma P+E isometrico, facetas 3D
-e gradiente, e refazer isso a mao sai parecido, nao igual.
-`tools/checar_pendencias.sh` bloqueia a publicacao enquanto o arquivo faltar.
+O arquivo oficial entrou como `assets/img/originais/logo-primor.png`
+(2048x2048, fundo branco, sem alpha). `tools/prepara_logo.py` deriva dele:
 
-Para resolver, colocar o arquivo em `assets/img/logo-primor.svg` (SVG de
-preferencia; PNG com fundo transparente e no minimo 600 px de largura serve) e,
-em `index.html`, `paraiso-da-enseada/index.html` e `paraiso-da-lagoa/index.html`,
-trocar os dois blocos `.marca` (um no header, um no rodape) por:
+| Arquivo | Uso |
+|---|---|
+| `assets/img/logo-primor.webp` | header, fundo claro |
+| `assets/img/logo-primor-branca.webp` | rodape, fundo preto |
 
-```html
-<a class="marca" href="/">
-  <img src="/assets/img/logo-primor.svg" alt="PRIMOR Empreendimentos" width="150" height="44">
-</a>
-```
+O script tira o matte branco (alpha pelo afastamento do branco, desfazendo a
+composicao), recorta no conteudo e reduz para 400 px. A versao branca clareia
+so os pixels sem cor — o wordmark preto e o "EMPREENDIMENTOS" cinza — e
+preserva o hexagono vermelho. O "EMPREENDIMENTOS" sai do fundo branco com
+alpha baixo, entao leva uma gama no alpha para nao virar cinza escuro sobre o
+rodape.
 
-No rodape, sobre fundo preto, usar a versao invertida da logo se existir
-(`logo-primor-branca.svg`). O wordmark da logo e preto; sobre o rodape preto
-ele some.
+Para trocar por um vetor, colocar o novo arquivo em `assets/img/originais/` e
+rodar o script de novo. Se houver SVG, melhor ainda: apontar as tags `<img>`
+para ele e dispensar o script.
+
+**O header tem 104 px de altura por causa da logo.** O lockup e quadrado (o
+hexagono fica acima do wordmark), entao num header de 70 px ele caberia com
+~55 px de largura e o "PRIMOR" viraria borrao. A 76 px de altura fica legivel.
+Se um dia existir uma versao horizontal do lockup (hexagono a esquerda do
+wordmark), o header pode voltar a ser baixo.
 
 ## Regra inegociavel das vitrines
 
@@ -125,7 +129,7 @@ Se preferir o texto 100% literal, e so reverter essas tres.
 Sobrenomes de Ciro e de Jairo e Rosana nao aparecem nos prints — estao marcados
 como pendentes. Um depoimento so com primeiro nome vale menos como prova.
 
-## Fotos — o que falta
+## Fotos — processadas
 
 As 19 fotos da Enseada e as 14 da Lagoa estao no Drive, nas pastas
 `Paraíso da Enseada` e `Paraíso da Lagoa`. **Elas nao podem ser trazidas para ca
@@ -194,12 +198,35 @@ Todos destacados em amarelo nas paginas (`class="pendente"`).
 - Sobrenomes de Ciro e de Jairo e Rosana
 - 1 paragrafo sobre padrao construtivo (home) e 2-3 por empreendimento entregue
 - Foto para o `og:image` de cada pagina (1200x630, foto real, nao a logo)
-- Arquivo da logo oficial (ver secao "Logo")
-- **Numero do registro de incorporacao do Ilha Bela e cartorio competente**
+- CNPJ das SPEs do Paraiso da Enseada e do Paraiso da Lagoa, se existirem
 
-CNPJ aplicado no rodape: **36.490.400/0002-50** (digito verificador confere).
-E um estabelecimento **filial** (ordem `0002`), nao a matriz `0001`. Se a
-incorporadora destes empreendimentos for a matriz, trocar.
+## Razao social e o que foi para cada rodape
+
+`Ilhabela Empreendimentos SPE LTDA`, CNPJ `36.490.400/0002-50` (digito
+verificador confere; ordem `0002`, um estabelecimento filial).
+
+SPE e Sociedade de Proposito Especifico: existe para um empreendimento. Esta e
+a do **Ilha Bela**. Por isso:
+
+- **Home**: a linha nomeia o empreendimento — "Ilha Bela Itacimirim Villages —
+  incorporacao: Ilhabela Empreendimentos SPE LTDA, CNPJ ..." — mais o CRECI da
+  comercializacao.
+- **Enseada e Lagoa**: so "PRIMOR Empreendimentos". Atribuir a SPE do Ilha Bela
+  a empreendimentos de 2018 e 2021 seria errado, e nao ha CRECI a declarar numa
+  pagina que nao oferta nada.
+
+Se cada entregue tiver a propria SPE, os CNPJs entram nesses dois rodapes.
+
+## Registro de incorporacao
+
+Publicado **sem** o numero do registro e o cartorio, por decisao do Gabriel.
+
+Fica o registro do motivo de isso ter sido levantado: a Lei 4.591/64, art. 32,
+§3º exige que o numero do registro da incorporacao e o cartorio competente
+constem de anuncios, impressos e publicacoes referentes a incorporacao, e o
+Ilha Bela tem Fase 02 em obra. Enseada e Lagoa, concluidos, nao entram nessa
+hipotese. Quando o numero chegar, o lugar e o rodape da home, junto da linha da
+SPE.
 
 ## Nota juridica: registro de incorporacao
 
