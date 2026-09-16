@@ -1,0 +1,166 @@
+/* ==========================================================================
+   PRIMOR Empreendimentos — tokens e componentes institucionais compartilhados
+   Usado por: / (home), /paraiso-da-enseada/, /paraiso-da-lagoa/
+   NAO usado por /ilhabela/ (mantem paleta propria).
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Paleta institucional PRIMOR — neutra, "capa" das tres identidades.
+     Nao repete terracota (Enseada), verde-agua (Ilha Bela) nem o clean (Lagoa). */
+  --areia:          #f4f0ea;
+  --areia-escura:   #e7e0d6;
+  --branco:         #ffffff;
+  --grafite:        #1b1e21;
+  --grafite-medio:  #565d64;
+  --grafite-claro:  #8b9298;
+  --petroleo:       #12464f;
+  --petroleo-claro: #1d6b77;
+  --dourado:        #a8843f;
+  --linha:          rgba(27, 30, 33, .12);
+
+  /* Tags de status */
+  --tag-vendas-bg:   #12464f;
+  --tag-vendas-fg:   #ffffff;
+  --tag-entregue-bg: rgba(27, 30, 33, .07);
+  --tag-entregue-fg: #565d64;
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --gutter: 20px;
+  --maxw: 1160px;
+  --radius: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--areia);
+  color: var(--grafite);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 40;
+  letter-spacing: -.015em;
+  line-height: 1.12;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--dourado);
+  margin: 0 0 18px;
+}
+
+/* --- Marcador de dado nao confirmado ---------------------------------------
+   Visivel de proposito. Nada com esta classe pode ir ao ar.
+   Busque por "pendente" antes de publicar.                                    */
+.pendente {
+  background: #fff3cd;
+  border-bottom: 2px dotted #b8860b;
+  color: #6b4e00;
+  font-style: normal;
+  padding: 0 3px;
+}
+
+/* --- Header ---------------------------------------------------------------- */
+.topo {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(244, 240, 234, .88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linha);
+}
+.topo .wrap { display: flex; align-items: center; justify-content: space-between; height: 66px; gap: 16px; }
+
+.marca { display: inline-flex; flex-direction: column; text-decoration: none; line-height: 1; }
+.marca b {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 23px;
+  letter-spacing: .1em;
+  color: var(--grafite);
+}
+.marca span {
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--grafite-claro); margin-top: 5px; font-weight: 500;
+}
+
+.topo nav { display: flex; align-items: center; gap: 26px; }
+/* :not(.btn) e obrigatorio: sem isso este seletor (0,2,1) vence .btn-primario
+   (0,1,0) e o texto do botao sai cinza em cima do petroleo. */
+.topo nav a:not(.btn) { font-size: 14px; text-decoration: none; color: var(--grafite-medio); font-weight: 500; }
+.topo nav a:not(.btn):hover { color: var(--petroleo); }
+@media (max-width: 640px) { .topo nav a.oculta-mobile { display: none; } }
+
+/* --- Botoes ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 13px 24px;
+  font-family: var(--sans); font-size: 14.5px; font-weight: 600;
+  text-decoration: none; border-radius: var(--radius);
+  border: 1px solid transparent; cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.btn-primario { background: var(--petroleo); color: #fff; }
+.btn-primario:hover { background: var(--petroleo-claro); }
+.btn-secundario { border-color: var(--grafite); color: var(--grafite); }
+.btn-secundario:hover { background: var(--grafite); color: var(--areia); }
+.btn-zap { background: #1f8a4c; color: #fff; }
+.btn-zap:hover { background: #17693a; }
+.btn-compacto { padding: 9px 16px; font-size: 13.5px; }
+
+/* --- Tags de status -------------------------------------------------------- */
+.tag {
+  display: inline-block;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 100px;
+}
+.tag-vendas   { background: var(--tag-vendas-bg);   color: var(--tag-vendas-fg); }
+.tag-entregue { background: var(--tag-entregue-bg); color: var(--tag-entregue-fg); }
+
+/* --- Rodape institucional (compartilhado) ---------------------------------- */
+.rodape { background: var(--grafite); color: rgba(255,255,255,.72); padding: 56px 0 36px; font-size: 14px; }
+.rodape a { color: rgba(255,255,255,.72); }
+.rodape-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
+  padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.14);
+}
+@media (max-width: 760px) { .rodape-grid { grid-template-columns: 1fr; gap: 30px; } }
+.rodape .marca b { color: #fff; }
+.rodape h4 {
+  font-family: var(--sans); font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); margin: 0 0 14px; font-weight: 600;
+}
+.rodape ul { list-style: none; margin: 0; padding: 0; }
+.rodape li { margin-bottom: 9px; }
+.rodape li a { text-decoration: none; }
+.rodape li a:hover { color: #fff; }
+.rodape-legal { padding-top: 26px; font-size: 12px; line-height: 1.65; color: rgba(255,255,255,.42); }
+.rodape-legal p { margin: 0 0 9px; }
+
+/* --- Utilidades ------------------------------------------------------------ */
+.secao { padding: 86px 0; }
+@media (max-width: 760px) { .secao { padding: 58px 0; } }
+.linha-dourada { width: 46px; height: 2px; background: var(--dourado); border: 0; margin: 0 0 22px; }

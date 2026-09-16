@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRIMOR Empreendimentos — Incorporadora no Litoral Norte da Bahia</title>
+<meta name="description" content="Incorporadora atuante no Litoral Norte da Bahia desde 2015. Conheca o Ilha Bela Itacimirim Villages, em vendas, e os empreendimentos Paraiso da Enseada e Paraiso da Lagoa, ja entregues.">
+<link rel="canonical" href="https://primor-construcoes.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="PRIMOR Empreendimentos">
+<meta property="og:title" content="PRIMOR Empreendimentos — Incorporadora no Litoral Norte da Bahia">
+<meta property="og:description" content="Desde 2015 no Litoral Norte da Bahia. Tres empreendimentos: dois entregues e um em vendas, em Itacimirim.">
+<meta property="og:url" content="https://primor-construcoes.vercel.app/">
+<!-- CONFIRMAR: og:image precisa ser foto real de empreendimento (1200x630), nao a logo. -->
+<meta property="og:image" content="https://primor-construcoes.vercel.app/assets/img/og-primor.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/primor.css">
+
+<style>
+  /* ---- Hero institucional (sem foto por enquanto; ver nota abaixo) ---- */
+  .hero {
+    position: relative;
+    padding: 118px 0 96px;
+    background:
+      radial-gradient(120% 90% at 80% 0%, rgba(29,107,119,.10) 0%, transparent 58%),
+      linear-gradient(180deg, #f8f5f0 0%, var(--areia) 100%);
+    border-bottom: 1px solid var(--linha);
+    overflow: hidden;
+  }
+  /* Quando houver foto aerea institucional, descomente e aponte o caminho:
+     .hero { background-image: linear-gradient(90deg, rgba(244,240,234,.96) 0%, rgba(244,240,234,.72) 55%, rgba(244,240,234,.35) 100%), url("/assets/img/hero-primor.webp");
+             background-size: cover; background-position: center; } */
+  .hero h1 { font-size: clamp(38px, 6.2vw, 68px); max-width: 15ch; }
+  .hero p.lead {
+    font-size: clamp(17px, 2.1vw, 20px);
+    color: var(--grafite-medio);
+    max-width: 52ch;
+    margin: 26px 0 0;
+  }
+  .hero .acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+
+  .numeros {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--linha);
+    margin-top: 64px; padding-top: 30px; gap: 20px;
+  }
+  @media (max-width: 700px) { .numeros { grid-template-columns: repeat(2, 1fr); row-gap: 28px; } }
+  .numeros dt { font-family: var(--serif); font-size: clamp(30px, 4vw, 42px); line-height: 1; color: var(--petroleo); }
+  .numeros dd {
+    margin: 9px 0 0; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--grafite-claro); font-weight: 600;
+  }
+
+  /* ---- Empreendimentos ---- */
+  .cabeca-secao { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px; }
+  .cabeca-secao h2 { font-size: clamp(28px, 3.8vw, 40px); }
+
+  .card {
+    display: block; text-decoration: none;
+    background: var(--branco);
+    border: 1px solid var(--linha);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(27,30,33,.09); border-color: rgba(27,30,33,.2); }
+  .card-inerte { cursor: default; }
+
+  .card-foto { position: relative; background: var(--areia-escura); aspect-ratio: 16 / 10; }
+  .card-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .card-foto .tag { position: absolute; top: 14px; left: 14px; }
+  /* Placeholder enquanto nao ha foto catalogada */
+  .card-foto.vazia::after {
+    content: "foto pendente de catalogacao";
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--grafite-claro); background: repeating-linear-gradient(45deg, #e7e0d6, #e7e0d6 10px, #ded6ca 10px, #ded6ca 20px);
+  }
+  .card-corpo { padding: 26px 26px 28px; }
+  .card-corpo h3 { font-size: 25px; margin-bottom: 7px; }
+  .card-local { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--grafite-claro); font-weight: 600; margin: 0 0 14px; }
+  .card-corpo p.desc { margin: 0; color: var(--grafite-medio); font-size: 15.5px; }
+  .card-link { display: inline-block; margin-top: 20px; font-weight: 600; font-size: 14.5px; color: var(--petroleo); }
+  .card-nota { display: inline-block; margin-top: 20px; font-size: 13.5px; color: var(--grafite-claro); font-style: italic; }
+
+  /* Destaque: o unico empreendimento em vendas ocupa o dobro do peso visual. */
+  .destaque { display: grid; grid-template-columns: 1.15fr 1fr; margin-bottom: 26px; }
+  @media (max-width: 860px) { .destaque { grid-template-columns: 1fr; } }
+  .destaque .card-foto { aspect-ratio: 4 / 3; height: 100%; }
+  .destaque .card-corpo { padding: 44px 44px 46px; display: flex; flex-direction: column; justify-content: center; }
+  .destaque .card-corpo h3 { font-size: clamp(28px, 3.4vw, 38px); }
+  .destaque .card-corpo p.desc { font-size: 16.5px; max-width: 42ch; }
+  @media (max-width: 860px) { .destaque .card-corpo { padding: 28px 24px 32px; } }
+
+  .grade-dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  @media (max-width: 760px) { .grade-dupla { grid-template-columns: 1fr; } }
+
+  /* ---- Sobre ---- */
+  .sobre { background: var(--branco); border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+  .sobre-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 64px; align-items: start; }
+  @media (max-width: 860px) { .sobre-grid { grid-template-columns: 1fr; gap: 30px; } }
+  .sobre h2 { font-size: clamp(28px, 3.8vw, 40px); }
+  .sobre p { color: var(--grafite-medio); font-size: 16.5px; margin: 0 0 18px; }
+  .sobre p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="/">
+      <b>PRIMOR</b>
+      <span>Empreendimentos</span>
+    </a>
+    <nav>
+      <a href="#empreendimentos" class="oculta-mobile">Empreendimentos</a>
+      <a href="#sobre" class="oculta-mobile">A PRIMOR</a>
+      <a class="btn btn-primario btn-compacto"
+         href="https://wa.me/5571996192271?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20PRIMOR%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20o%20Ilha%20Bela%20Itacimirim%20Villages."
+         target="_blank" rel="noopener">Falar com um corretor</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Incorporadora &middot; Litoral Norte da Bahia</p>
+      <h1>Desde 2015, construindo no Litoral Norte da Bahia.</h1>
+      <p class="lead">
+        Tres empreendimentos realizados. Dois entregues e integralmente comercializados.
+        Um em vendas, em Itacimirim.
+      </p>
+      <div class="acoes">
+        <a class="btn btn-primario" href="/ilhabela/">Conhecer o Ilha Bela</a>
+        <a class="btn btn-secundario" href="#empreendimentos">Ver todos os empreendimentos</a>
+      </div>
+
+      <dl class="numeros">
+        <div><dt>2015</dt><dd>Ano de fundacao</dd></div>
+        <div><dt>3</dt><dd>Empreendimentos</dd></div>
+        <div><dt>2</dt><dd>Entregues</dd></div>
+        <div><dt>1</dt><dd>Em vendas</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="secao" id="empreendimentos">
+    <div class="wrap">
+      <div class="cabeca-secao">
+        <div>
+          <hr class="linha-dourada">
+          <h2>Empreendimentos</h2>
+        </div>
+      </div>
+
+      <!-- DESTAQUE: unico empreendimento com unidades disponiveis. -->
+      <a class="card destaque" href="/ilhabela/">
+        <div class="card-foto vazia">
+          <span class="tag tag-vendas">Em vendas</span>
+          <!-- CONFIRMAR: usar foto de capa do Ilha Bela (webp, ~1100px largura).
+               Ex.: <img src="/assets/img/capa-ilhabela.webp" alt="Ilha Bela Itacimirim Villages" loading="lazy" width="1100" height="825"> -->
+        </div>
+        <div class="card-corpo">
+          <h3>Ilha Bela Itacimirim Villages</h3>
+          <p class="card-local">Itacimirim &middot; Camacari &mdash; BA</p>
+          <p class="desc">
+            Fase 01 concluida e entregue. Fase 02 em obras, com entrega prevista para 2027.
+            Plantas, localizacao, condicoes de pagamento e disponibilidade no site do empreendimento.
+          </p>
+          <span class="card-link">Ver o empreendimento &rarr;</span>
+        </div>
+      </a>
+
+      <div class="grade-dupla">
+
+        <a class="card" href="/paraiso-da-enseada/">
+          <div class="card-foto vazia">
+            <span class="tag tag-entregue">Entregue</span>
+          </div>
+          <div class="card-corpo">
+            <h3>Paraiso da Enseada</h3>
+            <p class="card-local"><span class="pendente">CONFIRMAR localizacao</span></p>
+            <p class="desc">
+              Empreendimento concluido, entregue em <span class="pendente">ano</span> e
+              integralmente comercializado. Nao ha unidades disponiveis para venda.
+            </p>
+            <span class="card-link">Ver o projeto &rarr;</span>
+          </div>
+        </a>
+
+        <a class="card" href="/paraiso-da-lagoa/">
+          <div class="card-foto vazia">
+            <span class="tag tag-entregue">Entregue</span>
+          </div>
+          <div class="card-corpo">
+            <h3>Paraiso da Lagoa</h3>
+            <p class="card-local"><span class="pendente">CONFIRMAR localizacao</span></p>
+            <p class="desc">
+              Empreendimento concluido, entregue em <span class="pendente">ano</span> e
+              integralmente comercializado. Nao ha unidades disponiveis para venda.
+            </p>
+            <span class="card-link">Ver o projeto &rarr;</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="secao sobre" id="sobre">
+    <div class="wrap sobre-grid">
+      <div>
+        <hr class="linha-dourada">
+        <h2>A PRIMOR</h2>
+      </div>
+      <div>
+        <p>
+          A PRIMOR Empreendimentos atua na incorporacao de empreendimentos residenciais
+          no Litoral Norte da Bahia desde 2015.
+        </p>
+        <p>
+          <span class="pendente">CONFIRMAR: 2 a 3 paragrafos institucionais — posicionamento,
+          padrao construtivo, historico de entrega. Sem numero nao confirmado (nº de unidades,
+          area construida, VGV).</span>
+        </p>
+        <p>
+          A comercializacao do empreendimento em vendas e conduzida por corretor inscrito no CRECI.
+          Paraiso da Enseada e Paraiso da Lagoa estao concluidos e nao possuem unidades a venda.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rodape-grid">
+      <div>
+        <a class="marca" href="/"><b>PRIMOR</b><span>Empreendimentos</span></a>
+        <p style="margin:18px 0 0; max-width:34ch; font-size:13.5px;">
+          Incorporacao de empreendimentos residenciais no Litoral Norte da Bahia desde 2015.
+        </p>
+      </div>
+      <div>
+        <h4>Empreendimentos</h4>
+        <ul>
+          <li><a href="/ilhabela/">Ilha Bela Itacimirim Villages</a></li>
+          <li><a href="/paraiso-da-enseada/">Paraiso da Enseada</a></li>
+          <li><a href="/paraiso-da-lagoa/">Paraiso da Lagoa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="https://wa.me/5571996192271?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20PRIMOR%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20o%20Ilha%20Bela%20Itacimirim%20Villages." target="_blank" rel="noopener">WhatsApp (71) 99619-2271</a></li>
+          <li><span class="pendente">CONFIRMAR Instagram</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rodape-legal">
+      <p>
+        PRIMOR Empreendimentos &mdash; CNPJ <span class="pendente">CONFIRMAR</span>.
+        Comercializacao: <span class="pendente">CONFIRMAR razao social da imobiliaria</span> &mdash; CRECI 37266-BA.
+      </p>
+      <p>
+        Ilha Bela Itacimirim Villages &mdash; registro de incorporacao
+        <span class="pendente">CONFIRMAR nº do registro e cartorio (Lei 4.591/64, art. 32, §3º: obrigatorio em todo anuncio)</span>.
+      </p>
+      <p>
+        Imagens meramente ilustrativas. Moveis, decoracao e paisagismo nao integram o contrato.
+        Paraiso da Enseada e Paraiso da Lagoa sao empreendimentos concluidos e integralmente
+        comercializados &mdash; as paginas destes empreendimentos tem carater exclusivamente
+        institucional e nao constituem oferta de venda.
+      </p>
+      <p>&copy; <span id="ano">2026</span> PRIMOR Empreendimentos. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PRIMOR Empreendimentos",
+  "url": "https://primor-construcoes.vercel.app/",
+  "foundingDate": "2015",
+  "areaServed": "Litoral Norte da Bahia, Brasil",
+  "description": "Incorporadora de empreendimentos residenciais no Litoral Norte da Bahia, atuante desde 2015."
+}
+</script>
+
+</body>
+</html>
