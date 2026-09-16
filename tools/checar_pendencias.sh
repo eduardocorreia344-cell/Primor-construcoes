@@ -35,7 +35,12 @@ fi
 
 echo
 echo "== Nomes de arquivo com maiuscula, espaco ou acento =="
-if find . -path ./.git -prune -o -print | grep -P '[A-Z ]|[^\x00-\x7F]' | grep -v '^./tools/'; then
+# So arquivos servidos na web. README.md, LICENSE etc. sao meta do repo.
+if find . -path ./.git -prune -o -type f \
+     \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.webp' \
+        -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.svg' \
+        -o -name '*.mp4' -o -name '*.woff2' \) -print \
+   | grep -P '[A-Z ]|[^\x00-\x7F]'; then
   echo "  ERRO: renomear para minusculo-sem-acento (case-sensitivity no Vercel)."
   falhou=1
 else
