@@ -13,6 +13,10 @@ Uso:
 
 Saida em <destino>/:
     fotos/NNN.webp          foto completa (max 1600px, q80) — para o lightbox
+
+As fotos do Drive sao screenshots de celular: a imagem fica numa faixa no
+meio e o resto e tarja preta. O script detecta e corta essas tarjas antes
+de converter, e avisa no relatorio quais fotos foram cortadas.
     fotos/NNN-thumb.webp    miniatura (max 520px, q78)      — para o card
     folha-de-contato.html   grade numerada para abrir no navegador
     folha-de-contato.jpg    mesma grade como imagem unica (mandar no WhatsApp)
@@ -62,11 +66,72 @@ def coletar(origem: Path, trabalho: Path) -> list[Path]:
     return fotos
 
 
+def _maior_faixa(escuro: list[bool], minimo: int) -> tuple[int, int]:
+    """Indices (inicio, fim) da maior sequencia continua de linhas nao escuras."""
+    melhor = (0, len(escuro))
+    melhor_tam = -1
+    i = 0
+    while i < len(escuro):
+        if escuro[i]:
+            i += 1
+            continue
+        j = i
+        while j < len(escuro) and not escuro[j]:
+            j += 1
+        if j - i > melhor_tam:
+            melhor_tam, melhor = j - i, (i, j)
+        i = j
+    return melhor if melhor_tam >= minimo else (0, len(escuro))
+
+
+def cortar_tarjas(img: Image.Image, limiar: int = 24) -> Image.Image:
+    """Remove tarjas pretas de screenshot (letterbox/pillarbox).
+
+    As fotos vieram como screenshot de celular: a foto ocupa uma faixa no meio
+    e o resto e tarja preta. Sem este corte a galeria publica retangulos pretos.
+
+    Procura a MAIOR faixa continua de linhas nao escuras, em vez de aparar a
+    partir da borda. A barra do indicador de home do iOS e uma faixa clara e
+    fina dentro da tarja preta: aparando pela borda o corte pararia nela e
+    sobraria quase toda a tarja. Pela maior faixa, a foto sempre vence.
+    """
+    cinza = img.convert("L")
+    larg, alt = cinza.size
+    px = cinza.load()
+
+    passo_x = max(1, larg // 200)
+    passo_y = max(1, alt // 200)
+
+    linhas = [max(px[x, y] for x in range(0, larg, passo_x)) < limiar for y in range(alt)]
+    topo, base = _maior_faixa(linhas, minimo=max(64, alt // 12))
+
+    colunas = [max(px[x, y] for y in range(topo, base, passo_y)) < limiar for x in range(larg)]
+    esq, dir_ = _maior_faixa(colunas, minimo=max(64, larg // 12))
+
+    if (topo, esq, base, dir_) == (0, 0, alt, larg):
+        return img
+
+    # Guarda: tarja de screenshot e preto puro; foto escura de verdade (ceu
+    # noturno, sombra) tem ruido e media bem acima de zero. Sem esta checagem
+    # uma foto legitimamente escura seria recortada ate so sobrar o ponto claro.
+    recorte = cinza.crop((esq, topo, dir_, base))
+    soma_total = sum(i * n for i, n in enumerate(cinza.histogram()))
+    soma_recorte = sum(i * n for i, n in enumerate(recorte.histogram()))
+    pixels_fora = larg * alt - recorte.width * recorte.height
+    if pixels_fora <= 0:
+        return img
+    media_tarja = (soma_total - soma_recorte) / pixels_fora
+    if media_tarja > 6:
+        return img
+
+    return img.crop((esq, topo, dir_, base))
+
+
 def abrir_corrigida(caminho: Path) -> Image.Image:
     """Abre a imagem ja com a rotacao do EXIF aplicada e em RGB."""
     img = Image.open(caminho)
     img = ImageOps.exif_transpose(img)
-    return img.convert("RGB")
+    return cortar_tarjas(img.convert("RGB"))
 
 
 def converter(fotos: list[Path], destino: Path) -> list[dict]:
@@ -76,7 +141,9 @@ def converter(fotos: list[Path], destino: Path) -> list[dict]:
 
     for i, origem in enumerate(fotos, start=1):
         num = f"{i:03d}"
-        img = abrir_corrigida(origem)
+        bruta = ImageOps.exif_transpose(Image.open(origem)).convert("RGB")
+        img = cortar_tarjas(bruta)
+        cortou = img.size != bruta.size
 
         full = img.copy()
         full.thumbnail((LARGURA_FULL, LARGURA_FULL), Image.LANCZOS)
@@ -92,7 +159,8 @@ def converter(fotos: list[Path], destino: Path) -> list[dict]:
             "largura": full.width,
             "altura": full.height,
         })
-        print(f"  {num}  {origem.name}  ->  {full.width}x{full.height}")
+        marca = "  [tarja cortada]" if cortou else ""
+        print(f"  {num}  {origem.name}  ->  {full.width}x{full.height}{marca}")
 
     return registros
 

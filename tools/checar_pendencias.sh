@@ -34,6 +34,17 @@ else
 fi
 
 echo
+echo "== Logo oficial da PRIMOR =="
+if ls assets/img/logo-primor.* >/dev/null 2>&1; then
+  echo "  presente. ok"
+else
+  echo "  ERRO: assets/img/logo-primor.(svg|png) nao existe."
+  echo "  O header e o rodape ainda usam o wordmark provisorio em Poppins,"
+  echo "  que NAO e a logo da marca. Ver 'Logo' no README."
+  falhou=1
+fi
+
+echo
 echo "== Nomes de arquivo com maiuscula, espaco ou acento =="
 # So arquivos servidos na web. README.md, LICENSE etc. sao meta do repo.
 if find . -path ./.git -prune -o -type f \

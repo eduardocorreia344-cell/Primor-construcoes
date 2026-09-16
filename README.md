@@ -43,6 +43,29 @@ Dois itens ainda a acertar contra o arquivo original:
   hexagono SVG simples ao lado. Nao e a logo. Colocar o arquivo oficial em
   `assets/img/logo-primor.svg` e trocar o bloco `.marca` por um `<img>`.
 
+## Logo
+
+**O header e o rodape ainda NAO usam a logo da PRIMOR.** Usam um wordmark
+provisorio: "PRIMOR / EMPREENDIMENTOS" em Poppins com um hexagono SVG liso ao
+lado. Nao e a marca — o hexagono real tem monograma P+E isometrico, facetas 3D
+e gradiente, e refazer isso a mao sai parecido, nao igual.
+`tools/checar_pendencias.sh` bloqueia a publicacao enquanto o arquivo faltar.
+
+Para resolver, colocar o arquivo em `assets/img/logo-primor.svg` (SVG de
+preferencia; PNG com fundo transparente e no minimo 600 px de largura serve) e,
+em `index.html`, `paraiso-da-enseada/index.html` e `paraiso-da-lagoa/index.html`,
+trocar os dois blocos `.marca` (um no header, um no rodape) por:
+
+```html
+<a class="marca" href="/">
+  <img src="/assets/img/logo-primor.svg" alt="PRIMOR Empreendimentos" width="150" height="44">
+</a>
+```
+
+No rodape, sobre fundo preto, usar a versao invertida da logo se existir
+(`logo-primor-branca.svg`). O wordmark da logo e preto; sobre o rodape preto
+ele some.
+
 ## Regra inegociavel das vitrines
 
 `/paraiso-da-enseada/` e `/paraiso-da-lagoa/` sao empreendimentos **entregues e
@@ -110,8 +133,22 @@ por este ambiente**: `drive.google.com` esta bloqueado pela politica de rede da
 sessao, e o conector do Drive devolve o arquivo como base64 dentro da conversa —
 33 PNGs de 3 a 13 MB nao cabem.
 
-Caminho que funciona: baixar as duas pastas como `.zip` e anexar no chat, ou
-subir os arquivos direto no repositorio.
+**Anexar no chat tambem nao funciona.** Imagem colada na conversa nao vira
+arquivo no disco do ambiente: da para olhar, nao para converter nem commitar.
+
+O unico caminho que funciona e **subir os arquivos para este repositorio**, na
+branch `claude/primor-site-institucional-wtw8l9`:
+
+1. Baixar as duas pastas do Drive como `.zip` e descompactar no computador.
+2. No GitHub, abrir o repositorio na branch acima.
+3. `Add file` > `Upload files`, arrastar as fotos da Enseada para
+   `paraiso-da-enseada/originais/`.
+4. Commitar, e repetir para `paraiso-da-lagoa/originais/`.
+5. Avisar aqui. Eu processo, converto e monto a galeria.
+
+Uma pasta por vez: a interface web do GitHub falha em silencio acima de ~100
+arquivos e as vezes achata a estrutura de pastas. Sao 19 + 14, entao dois
+envios resolvem. Conferir a lista de arquivos resultante antes de seguir.
 
 Com os arquivos em maos:
 
@@ -131,6 +168,18 @@ Gera em cada pasta:
 | `fotos/NNN.webp` | foto do lightbox (max 1600px, q80) |
 | `fotos/NNN-thumb.webp` | miniatura do card (max 520px, q78) |
 
+### As fotos sao screenshots
+
+Os arquivos do Drive sao screenshots de celular: a foto ocupa uma faixa no meio
+e o resto e tarja preta, com a barra do indicador de home do iOS no rodape. O
+`folha_de_contato.py` detecta e corta essas tarjas automaticamente e avisa no
+relatorio quais fotos cortou.
+
+Cortar tarja nao devolve resolucao. O que sobra e a faixa de foto no tamanho da
+tela, nao o arquivo do fotografo. **Se a pasta dos originais existir, ela vale
+muito mais** — sobretudo para o hero e o lightbox. Vale procurar antes de
+processar os screenshots.
+
 Nunca presumir a qual area cada foto pertence. Ja deu errado antes (planta baixa
 dentro da galeria de piscina). Com o `catalogo.csv` preenchido, preencher a
 constante `window.FOTOS` no fim do `index.html` de cada vitrine. Enquanto
@@ -140,13 +189,17 @@ estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pront
 
 Todos destacados em amarelo nas paginas (`class="pendente"`).
 
-- CNPJ da PRIMOR Empreendimentos
 - Razao social da imobiliaria responsavel pela comercializacao
 - Instagram / redes da PRIMOR
 - Sobrenomes de Ciro e de Jairo e Rosana
 - 1 paragrafo sobre padrao construtivo (home) e 2-3 por empreendimento entregue
 - Foto para o `og:image` de cada pagina (1200x630, foto real, nao a logo)
+- Arquivo da logo oficial (ver secao "Logo")
 - **Numero do registro de incorporacao do Ilha Bela e cartorio competente**
+
+CNPJ aplicado no rodape: **36.490.400/0002-50** (digito verificador confere).
+E um estabelecimento **filial** (ordem `0002`), nao a matriz `0001`. Se a
+incorporadora destes empreendimentos for a matriz, trocar.
 
 ## Nota juridica: registro de incorporacao
 
