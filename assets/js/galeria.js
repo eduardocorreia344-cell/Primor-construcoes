@@ -68,7 +68,9 @@
 
   function fechar() {
     caixa.hidden = true;
-    img.src = "";
+    // removeAttribute, nao src = "": src vazio faz alguns navegadores
+    // requisitarem a propria URL da pagina.
+    img.removeAttribute("src");
     document.body.style.overflow = "";
     if (abridor) abridor.focus();
   }

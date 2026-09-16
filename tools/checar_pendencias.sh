@@ -47,7 +47,7 @@ fi
 echo
 echo "== Nomes de arquivo com maiuscula, espaco ou acento =="
 # So arquivos servidos na web. README.md, LICENSE etc. sao meta do repo.
-if find . -path ./.git -prune -o -type f \
+if find . \( -path ./.git -o -name originais \) -prune -o -type f \
      \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.webp' \
         -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.svg' \
         -o -name '*.mp4' -o -name '*.woff2' \) -print \

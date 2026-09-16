@@ -1,0 +1,9 @@
+# Os PNG originais ficam versionados como fonte, mas nao vao para o site.
+# A galeria usa os WebP gerados em <empreendimento>/fotos/.
+paraiso-da-enseada/originais
+paraiso-da-lagoa/originais
+tools
+*.md
+folha-de-contato.html
+folha-de-contato.jpg
+catalogo.csv

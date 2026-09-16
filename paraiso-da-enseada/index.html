@@ -14,7 +14,6 @@
 <meta property="og:title" content="Paraiso da Enseada — empreendimento entregue pela PRIMOR">
 <meta property="og:description" content="16 unidades em Itacimirim, entregues em 2018. Empreendimento integralmente comercializado. Pagina institucional, sem oferta de venda.">
 <meta property="og:url" content="https://primor-construcoes.vercel.app/paraiso-da-enseada/">
-<!-- CONFIRMAR: apontar para uma foto real do empreendimento (1200x630), nao a logo. -->
 <meta property="og:image" content="https://primor-construcoes.vercel.app/paraiso-da-enseada/fotos/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0e0e0e">
@@ -24,12 +23,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/primor.css">
 <link rel="stylesheet" href="/assets/css/vitrine.css">
-<!-- CONFIRMAR: apos catalogar as fotos, adicionar o preload da foto de capa:
-     <link rel="preload" as="image" fetchpriority="high" href="/paraiso-da-enseada/fotos/001.webp"> -->
+<link rel="preload" as="image" fetchpriority="high" href="/paraiso-da-enseada/fotos/001.webp">
 
 <style>
-  /* CONFIRMAR: trocar pela foto de capa escolhida na catalogacao.
-     .hero-vitrine { background-image: url("/paraiso-da-enseada/fotos/001.webp"); } */
+  .hero-vitrine { background-image: url("/paraiso-da-enseada/fotos/001.webp"); }
 </style>
 </head>
 <body>
@@ -178,13 +175,122 @@
 <script>
   document.getElementById("ano").textContent = new Date().getFullYear();
 
-  /* Preencher APOS a catalogacao manual (tools/folha_de_contato.py -> catalogo.csv).
-     Formato:
-       { thumb: "/paraiso-da-enseada/fotos/001-thumb.webp",
-         full:  "/paraiso-da-enseada/fotos/001.webp",
-         alt:   "Piscina do Paraiso da Enseada",
-         legenda: "Piscina" }                                                  */
-  window.FOTOS = [];
+  window.FOTOS = [
+      {
+          "thumb": "/paraiso-da-enseada/fotos/017-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/017.webp",
+          "alt": "Portaria do Paraiso da Enseada",
+          "legenda": "Portaria"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/001-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/001.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Piscina e fachada"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/007-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/007.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Deck entre as piscinas"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/002-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/002.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Raia"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/003-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/003.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Raia e deck"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/005-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/005.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Prainha"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/006-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/006.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Piscina e paisagismo"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/008-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/008.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Piscina e espaco gourmet"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/009-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/009.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Deck"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/010-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/010.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Piscina"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/011-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/011.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Prainha e raia"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/016-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/016.webp",
+          "alt": "Piscina do Paraiso da Enseada",
+          "legenda": "Piscina"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/012-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/012.webp",
+          "alt": "Espaco gourmet do Paraiso da Enseada",
+          "legenda": "Espaco gourmet"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/013-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/013.webp",
+          "alt": "Espaco gourmet do Paraiso da Enseada",
+          "legenda": "Bancada e mesa comunitaria"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/014-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/014.webp",
+          "alt": "Jardins do Paraiso da Enseada",
+          "legenda": "Circulacao e paisagismo"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/015-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/015.webp",
+          "alt": "Jardins do Paraiso da Enseada",
+          "legenda": "Varandas e jardim"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/019-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/019.webp",
+          "alt": "Vista aerea do Paraiso da Enseada",
+          "legenda": "Vista aerea do conjunto"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/018-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/018.webp",
+          "alt": "Vista aerea do Paraiso da Enseada",
+          "legenda": "Vista aerea das piscinas"
+      },
+      {
+          "thumb": "/paraiso-da-enseada/fotos/004-thumb.webp",
+          "full": "/paraiso-da-enseada/fotos/004.webp",
+          "alt": "Vista aerea do Paraiso da Enseada",
+          "legenda": "Vista aerea"
+      }
+  ];
 </script>
 <script src="/assets/js/galeria.js" defer></script>
 

@@ -14,7 +14,6 @@
 <meta property="og:title" content="Paraiso da Lagoa — empreendimento entregue pela PRIMOR">
 <meta property="og:description" content="32 unidades em Itacimirim, entregues em 2021. Empreendimento integralmente comercializado. Pagina institucional, sem oferta de venda.">
 <meta property="og:url" content="https://primor-construcoes.vercel.app/paraiso-da-lagoa/">
-<!-- CONFIRMAR: apontar para uma foto real do empreendimento (1200x630), nao a logo. -->
 <meta property="og:image" content="https://primor-construcoes.vercel.app/paraiso-da-lagoa/fotos/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0e0e0e">
@@ -24,12 +23,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/primor.css">
 <link rel="stylesheet" href="/assets/css/vitrine.css">
-<!-- CONFIRMAR: apos catalogar as fotos, adicionar o preload da foto de capa:
-     <link rel="preload" as="image" fetchpriority="high" href="/paraiso-da-lagoa/fotos/001.webp"> -->
+<link rel="preload" as="image" fetchpriority="high" href="/paraiso-da-lagoa/fotos/003.webp">
 
 <style>
-  /* CONFIRMAR: trocar pela foto de capa escolhida na catalogacao.
-     .hero-vitrine { background-image: url("/paraiso-da-lagoa/fotos/001.webp"); } */
+  .hero-vitrine { background-image: url("/paraiso-da-lagoa/fotos/003.webp"); }
 </style>
 </head>
 <body>
@@ -188,13 +185,92 @@
 <script>
   document.getElementById("ano").textContent = new Date().getFullYear();
 
-  /* Preencher APOS a catalogacao manual (tools/folha_de_contato.py -> catalogo.csv).
-     Formato:
-       { thumb: "/paraiso-da-lagoa/fotos/001-thumb.webp",
-         full:  "/paraiso-da-lagoa/fotos/001.webp",
-         alt:   "Piscina do Paraiso da Lagoa",
-         legenda: "Piscina" }                                                  */
-  window.FOTOS = [];
+  window.FOTOS = [
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/003-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/003.webp",
+          "alt": "Piscina do Paraiso da Lagoa",
+          "legenda": "Deck entre as piscinas"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/002-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/002.webp",
+          "alt": "Piscina do Paraiso da Lagoa",
+          "legenda": "Piscina"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/004-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/004.webp",
+          "alt": "Piscina do Paraiso da Lagoa",
+          "legenda": "Piscina e fachada"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/005-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/005.webp",
+          "alt": "Piscina do Paraiso da Lagoa",
+          "legenda": "Prainha e raia"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/006-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/006.webp",
+          "alt": "Piscina do Paraiso da Lagoa",
+          "legenda": "Piscina e paisagismo"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/010-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/010.webp",
+          "alt": "Piscina do Paraiso da Lagoa",
+          "legenda": "Deck e espreguicadeiras"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/008-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/008.webp",
+          "alt": "Playground do Paraiso da Lagoa",
+          "legenda": "Playground"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/013-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/013.webp",
+          "alt": "Espaco gourmet do Paraiso da Lagoa",
+          "legenda": "Espaco gourmet"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/014-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/014.webp",
+          "alt": "Espaco gourmet do Paraiso da Lagoa",
+          "legenda": "Bancada e churrasqueira"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/009-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/009.webp",
+          "alt": "Unidades do Paraiso da Lagoa",
+          "legenda": "Varanda com brise de madeira"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/011-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/011.webp",
+          "alt": "Unidades do Paraiso da Lagoa",
+          "legenda": "Fachada e jardim"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/012-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/012.webp",
+          "alt": "Unidades do Paraiso da Lagoa",
+          "legenda": "Fachada e jardim"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/007-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/007.webp",
+          "alt": "Jardins do Paraiso da Lagoa",
+          "legenda": "Circulacao e paisagismo"
+      },
+      {
+          "thumb": "/paraiso-da-lagoa/fotos/001-thumb.webp",
+          "full": "/paraiso-da-lagoa/fotos/001.webp",
+          "alt": "Vista aerea do Paraiso da Lagoa",
+          "legenda": "Vista aerea"
+      }
+  ];
 </script>
 <script src="/assets/js/galeria.js" defer></script>
 
