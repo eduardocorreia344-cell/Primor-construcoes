@@ -1,0 +1,13 @@
+PRIMOR Empreendimentos — marcador de versao do deploy
+
+Este arquivo existe para responder uma pergunta: o que esta publicado no
+Vercel e a versao mais recente do repositorio?
+
+Abra https://<seu-dominio>/versao.txt no navegador.
+
+  Se aparecer este texto  -> o deploy esta atualizado e inclui o rewrite
+                             de /ilhabela/ para a landing do empreendimento.
+  Se der 404              -> o deploy esta atrasado. Rode um novo deploy no
+                             Vercel com "Use existing Build Cache" DESMARCADO.
+
+marcador: rewrite-ilhabela-ativo
