@@ -26,7 +26,7 @@ echo
 echo "== Termos de oferta nas vitrines =="
 if grep -rniE "a partir de R\\\$|entrada de|parcelas de|unidades dispon|agende (sua )?visita|simule" \
     paraiso-da-enseada paraiso-da-lagoa 2>/dev/null \
-    | grep -viE "n[ao]o h[ao] unidades|n[ao]o constitui|integralmente comercializado"; then
+    | grep -viE "n(ã|a)o h(á|a) unidades|n(ã|a)o constitui|integralmente comercializado"; then
   echo "  ERRO: linguagem de oferta em pagina de empreendimento entregue."
   falhou=1
 else

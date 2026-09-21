@@ -189,15 +189,37 @@ dentro da galeria de piscina). Com o `catalogo.csv` preenchido, preencher a
 constante `window.FOTOS` no fim do `index.html` de cada vitrine. Enquanto
 estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pronta.
 
-## Outros dados que faltam confirmar
+## Estado
 
-Todos destacados em amarelo nas paginas (`class="pendente"`).
+`tools/checar_pendencias.sh` passa limpo: nao ha mais nenhum `class="pendente"`
+nas paginas. Todo o conteudo esta preenchido com dado confirmado.
+
+### Correcao de localizacao
+
+Os textos institucionais chegaram com "Itacimirim em Salvador" (Enseada) e
+"Itacimirim SA" (Lagoa). Itacimirim e distrito de **Camacari**, nao de
+Salvador, e e o que o resto do site ja dizia. Publicado como
+"Itacimirim, Camacari".
+
+### Acentuacao
+
+O texto do site foi escrito sem acento na primeira versao, por cautela com
+encoding que nao se justificava: as paginas sao utf-8 e sempre foram. Um site
+em portugues com "Paraiso" e "incorporacao" le como quebrado. Todo o texto
+visivel foi acentuado — incluindo `alt`, `title`, meta description, Open Graph
+e JSON-LD. Os caminhos de arquivo continuam sem acento, como manda a regra de
+case-sensitivity.
+
+O filtro de linguagem de oferta do `checar_pendencias.sh` tambem foi acentuado:
+ele excluia "nao ha unidades disponiveis" sem acento e passou a acusar falso
+positivo quando o texto ganhou acento.
+
+### O que ainda pode melhorar
 
 - Razao social da imobiliaria responsavel pela comercializacao
-- Instagram / redes da PRIMOR
-- Sobrenomes de Ciro e de Jairo e Rosana
-- 1 paragrafo sobre padrao construtivo (home) e 2-3 por empreendimento entregue
-- Foto para o `og:image` de cada pagina (1200x630, foto real, nao a logo)
+- Originais em alta das fotos da galeria: as do Drive sao screenshots de 1170 px
+- Capa do card do Ilha Bela: hoje e a logo, a pedido; foto converte mais
+- Versao horizontal do lockup da logo, que permitiria um header mais baixo
 - CNPJ das SPEs do Paraiso da Enseada e do Paraiso da Lagoa, se existirem
 
 ## Razao social e o que foi para cada rodape
