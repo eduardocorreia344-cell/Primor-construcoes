@@ -195,26 +195,24 @@ estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pront
 Secao `#cadastro` na home: "Cadastre-se e receba novidades dos proximos
 empreendimentos". Nome, e-mail, WhatsApp opcional e consentimento.
 
-**Falta uma coisa para funcionar: o destino.** Em `index.html`,
-`window.CADASTRO_ENDPOINT` esta vazio, e `tools/checar_pendencias.sh`
-bloqueia a publicacao enquanto estiver. Com ele vazio o formulario recusa o
-envio com mensagem clara — nunca finge sucesso e perde o cadastro.
+Os cadastros vao para o **Formspree**, configurado em
+`window.CADASTRO_ENDPOINT` no `index.html`. O identificador do formulario e
+publico por natureza — ele vive no HTML e e o que o navegador chama. Quem
+protege contra spam e a armadilha em `formulario.js` mais o filtro do
+proprio Formspree.
 
-### Como configurar, em 3 minutos
+Para trocar de servico (Basin, Web3Forms) basta trocar esse endereco: o
+formulario envia `FormData` com `Accept: application/json`, que e o formato
+que todos eles aceitam.
 
-1. Criar conta em `formspree.io` (o plano gratuito serve para comecar).
-2. Criar um formulario novo. Ele gera um endereco no formato
-   `https://formspree.io/f/abcdwxyz`.
-3. Colar esse endereco em `window.CADASTRO_ENDPOINT`, em `index.html`.
-4. Commitar. Os cadastros passam a chegar por e-mail e ficam na conta.
+`tools/checar_pendencias.sh` bloqueia a publicacao se o endereco voltar a
+ficar vazio. Nesse estado o formulario recusa o envio com mensagem clara,
+em vez de fingir sucesso e perder o cadastro.
 
-Nao e preciso mudar mais nada: o formulario ja envia `FormData` com
-`Accept: application/json`, que e o formato que o Formspree espera. Serve
-igual para Basin ou Web3Forms — so trocar o endereco.
-
-Alternativa sem servico externo: um Google Forms com os mesmos campos, que
-grava numa planilha. Da mais trabalho para ligar e nao devolve resposta em
-JSON, entao o estado de sucesso na tela fica menos confiavel.
+**Os testes nunca tocam o servico real.** `tools/testa_formulario.py` aborta
+qualquer requisicao para `formspree.io` e simula o cenario de destino vazio
+em vez de herda-lo da pagina — sem isso, cada rodada de teste geraria
+cadastro de mentira na caixa de entrada.
 
 ### O que o formulario ja faz
 
