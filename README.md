@@ -317,7 +317,58 @@ hipotese.
 O rodape ja tem o campo reservado. Confirmar o numero com a PRIMOR antes de
 tirar o marcador amarelo.
 
-## Sobre a migracao do Ilha Bela
+## /ilhabela/ — como esta ligado
+
+`vercel.json` faz um **rewrite** de `/ilhabela/` para
+`https://ilhabela-one.vercel.app`. Rewrite nao e redirecionamento: a URL na
+barra continua sendo a da PRIMOR e o Vercel busca o conteudo do outro projeto
+por tras. O visitante nao sai do dominio.
+
+```json
+{ "source": "/ilhabela/:caminho*",
+  "destination": "https://ilhabela-one.vercel.app/:caminho*" }
+```
+
+Funciona porque a landing do Ilha Bela usa **so caminhos relativos**
+(`hero.jpg`, `frame-000.jpg`) — verificado no repositorio
+`eduardocorreia344-cell/ilhabela`: zero `src="/..."`, zero `href="/..."`,
+zero fetch com caminho absoluto. Fosse com caminho absoluto, o navegador
+pediria `primor.../hero.jpg`, que a regra nao pega, e a pagina viria sem
+imagem nem estilo. `trailingSlash: true` garante que `/ilhabela` vire
+`/ilhabela/` antes do rewrite, o que e o que faz o caminho relativo resolver
+para dentro da pasta.
+
+**Nao deu para testar daqui**: a politica de rede desta sessao recusa
+`vercel.app`, e rewrite so existe no Vercel de verdade. A configuracao esta
+correta na sintaxe e coerente com a estrutura da landing, mas quem confirma
+e o deploy.
+
+### O dominio proprio do Ilha Bela
+
+A landing declara `<link rel="canonical" href="https://www.ilhabelaitacimirim.com.br/">`.
+Existe dominio proprio para o empreendimento. Isso contradiz a premissa das
+recomendacoes anteriores deste arquivo, que assumiam so `.vercel.app`.
+
+Com o rewrite, a mesma pagina passa a existir em tres enderecos. Nao gera
+penalidade, porque o canonical dentro dela aponta para o `.com.br` e o Google
+consolida tudo la — mas tambem significa que o caminho na PRIMOR nao acumula
+nada de SEO, so serve a experiencia de nao tirar o visitante do dominio.
+
+Se a preferencia for mandar o visitante para o endereco proprio do
+empreendimento, e trocar o rewrite por link externo: apagar o bloco
+`rewrites` do `vercel.json` e trocar `href="/ilhabela/"` por
+`href="https://www.ilhabelaitacimirim.com.br/"` com `target="_blank"` e
+`rel="noopener"` nos tres arquivos HTML.
+
+### Cache
+
+Os nomes de arquivo do site nao carregam hash de conteudo: `capa-ilhabela.webp`
+continua `capa-ilhabela.webp` depois de trocada. O `Cache-Control` era
+`immutable` por um ano, o que faria quem ja tivesse visitado continuar vendo a
+versao antiga por um ano. Trocado por `max-age=86400, must-revalidate`: um dia
+de cache e depois revalidacao por ETag, que devolve 304 quando nada mudou.
+
+## Historico: a decisao de nao copiar o Ilha Bela para dentro do repo
 
 O site do Ilha Bela (`eduardocorreia344-cell/ilhabela`) **ainda nao foi movido**
 para `/ilhabela/`. Os links da home ja apontam para esse caminho, entao hoje

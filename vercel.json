@@ -1,17 +1,29 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
+
+  "rewrites": [
+    { "source": "/ilhabela", "destination": "https://ilhabela-one.vercel.app" },
+    { "source": "/ilhabela/:caminho*", "destination": "https://ilhabela-one.vercel.app/:caminho*" }
+  ],
+
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }
+        { "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }
       ]
     },
     {
-      "source": "/(.*)\\.(webp|jpg|jpeg|png|mp4|woff2)",
+      "source": "/paraiso-da-enseada/fotos/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/paraiso-da-lagoa/fotos/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }
       ]
     }
   ]
