@@ -492,11 +492,11 @@ document.documentElement.classList.add("motion");</script>
 <script>
   document.getElementById("ano").textContent = new Date().getFullYear();
 
-  /* CONFIRMAR: destino do formulario de cadastro. Enquanto estiver vazio,
-     o formulario recusa o envio e checar_pendencias.sh bloqueia a
-     publicacao — melhor do que fingir sucesso e perder o cadastro.
-     Ver "Formulario de cadastro" no README. */
-  window.CADASTRO_ENDPOINT = "";
+  /* Destino do formulario de cadastro (Formspree). O identificador e
+     publico por natureza: ele vive no HTML e e o que o navegador chama.
+     Quem protege contra spam e a armadilha em formulario.js mais o filtro
+     do proprio Formspree. */
+  window.CADASTRO_ENDPOINT = "https://formspree.io/f/mnpnddjz";
 </script>
 <script src="/assets/js/formulario.js" defer></script>
 

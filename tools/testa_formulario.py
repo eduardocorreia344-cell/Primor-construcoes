@@ -26,8 +26,15 @@ def main() -> int:
     with sync_playwright() as p:
         nav = p.chromium.launch(executable_path=EXE, args=["--no-sandbox"])
         pg = nav.new_page(viewport={"width": 1440, "height": 900})
+        # Barreira: nenhuma requisicao de teste pode escapar para o servico
+        # real e virar cadastro de mentira na caixa de entrada.
+        pg.route("**/formspree.io/**", lambda r: r.abort())
+
         pg.goto(BASE + "/#cadastro", wait_until="networkidle")
         pg.wait_for_timeout(1500)
+
+        # O cenario de destino vazio e simulado, nao herdado da pagina.
+        pg.evaluate("window.CADASTRO_ENDPOINT = ''")
 
         def estado():
             return pg.text_content(".cadastro-estado").strip()
