@@ -8,9 +8,24 @@
   display: flex; align-items: flex-end;
   padding: 92px 0 56px;
   background: var(--preto);
-  background-size: cover; background-position: center;
   color: #fff;
+  overflow: hidden;
 }
+
+/* A foto de capa vive num pseudo-elemento, nao no fundo do proprio hero:
+   background-image nao aceita transform, e o Ken Burns precisa de transform
+   para ser desenhado na placa de video. Cada pagina define --capa.          */
+.hero-vitrine::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: var(--capa);
+  background-size: cover; background-position: center;
+  transform: scale(1);
+}
+/* Comeca em scale(1) de proposito: qualquer estado inicial diferente do
+   final atrasaria a pintura da maior imagem da pagina (o LCP).             */
+.motion .hero-vitrine::before { animation: kenburns 26s ease-out forwards; }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.07); } }
+
 .hero-vitrine::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(14,14,14,.25) 0%, rgba(14,14,14,.82) 100%);
@@ -65,6 +80,18 @@
   padding: 26px 14px 11px; text-align: left;
   font-size: 12px; font-weight: 600; color: #fff;
   background: linear-gradient(180deg, transparent, rgba(0,0,0,.7));
+}
+/* Em telas com mouse a legenda aparece no hover — sempre visivel deixava a
+   grade poluida. Em toque nao existe hover, entao la ela continua fixa.    */
+@media (hover: hover) {
+  .motion .galeria-legenda {
+    opacity: 0; transform: translateY(6px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .motion .galeria-item:hover .galeria-legenda,
+  .motion .galeria-item:focus-visible .galeria-legenda {
+    opacity: 1; transform: none;
+  }
 }
 .galeria-vazia {
   grid-column: 1 / -1; padding: 34px; text-align: center;

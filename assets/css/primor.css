@@ -99,8 +99,11 @@ h1, h2, h3 {
    "PRIMOR" vira borrao e o "EMPREENDIMENTOS" some.                           */
 .topo {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(255,255,255,.93);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  /* Fundo opaco, sem backdrop-filter: com o header encolhendo, o blur
+     recompoe a cada quadro e deixa um fantasma da logo no tamanho antigo.
+     A 93% de branco o efeito de vidro nem aparecia, e custava GPU em todo
+     quadro de scroll. */
+  background: #fff;
   border-bottom: 1px solid var(--linha);
 }
 .topo .wrap { display: flex; align-items: center; justify-content: space-between; height: 104px; gap: 16px; }
@@ -198,3 +201,112 @@ h1, h2, h3 {
 .secao-cinza { background: var(--cinza-50); border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
 .filete { width: 42px; height: 3px; background: var(--vermelho); border: 0; margin: 0 0 20px; }
 .titulo-secao { font-size: clamp(27px, 3.7vw, 40px); }
+
+/* ==========================================================================
+   MOVIMENTO
+   Tudo aqui depende da classe .motion no <html>, colocada por um script
+   inline no <head>. Sem JavaScript a classe nunca entra e a pagina aparece
+   inteira, estatica — nunca invisivel esperando um script que falhou.
+   ========================================================================== */
+
+/* --- Transicao entre paginas ----------------------------------------------
+   Duas linhas fazem a navegacao entre /, /paraiso-da-enseada/ e
+   /paraiso-da-lagoa/ deixar de piscar em branco. Navegador sem suporte
+   simplesmente navega como antes.                                           */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) { animation: vt-sai .2s ease both; }
+::view-transition-new(root) { animation: vt-entra .3s ease both; }
+@keyframes vt-sai   { to   { opacity: 0; transform: translateY(-6px); } }
+@keyframes vt-entra { from { opacity: 0; transform: translateY(10px); } }
+
+/* --- Entrada no scroll -----------------------------------------------------
+   So opacity e transform: o navegador desenha as duas na placa de video,
+   sem recalcular o layout da pagina a cada quadro.                          */
+/* A lista precisa estar no CSS, nao num atributo posto pelo JS: o script so
+   roda depois do parse, e o elemento apareceria por um instante antes de
+   sumir. Nada do hero entra aqui — animar o que ja esta na tela ao abrir
+   atrasa o LCP, a medida que o Google usa em ranqueamento e no Ads.         */
+/* :where() nao soma especificidade. Sem ele, ".motion .secao .filete"
+   (0,3,0) venceria ".motion .visivel" (0,2,0) e o elemento receberia a
+   classe mas continuaria invisivel — foi exatamente o que aconteceu. */
+.motion :where(
+  .secao .filete,
+  .titulo-secao,
+  .marco,
+  .card,
+  .depoimento,
+  .ficha > div,
+  .texto-institucional p,
+  .sobre-grid > div,
+  .galeria-item,
+  .cta-ilhabela h2,
+  .cta-ilhabela p,
+  .cta-ilhabela .btn,
+  .secao-cinza > .wrap > p
+) {
+  opacity: var(--rv-opacidade, 0);
+  transform: translateY(var(--rv-deslocamento, 14px));
+  transition: opacity .55s cubic-bezier(.22, .61, .36, 1),
+              transform .55s cubic-bezier(.22, .61, .36, 1);
+  transition-delay: calc(var(--atraso, 0) * 60ms);
+}
+.motion .visivel { opacity: 1; transform: none; }
+/* O que ja esta na tela quando a pagina abre aparece sem animar. */
+.motion .instantaneo { transition: none; }
+
+/* --- Header que encolhe ----------------------------------------------------
+   Unica excecao a regra de so animar transform/opacity: a altura do header
+   muda o layout de verdade e nao ha como falsear isso com transform sem
+   deixar uma faixa vazia. E um elemento so, uma vez por mudanca de direcao
+   do scroll — o custo e pontual, nao por quadro numa lista.                 */
+.motion .topo .wrap,
+.motion .marca img { transition: height .3s cubic-bezier(.4, 0, .2, 1); }
+.motion .topo { transition: box-shadow .3s ease; }
+.motion .topo.compacto .wrap { height: 72px; }
+.motion .topo.compacto .marca img { height: 50px; }
+.motion .topo.compacto { box-shadow: 0 2px 18px rgba(14, 14, 14, .09); }
+@media (max-width: 640px) {
+  .motion .topo.compacto .wrap { height: 64px; }
+  .motion .topo.compacto .marca img { height: 44px; }
+}
+
+/* --- Microinteracoes -------------------------------------------------------- */
+.card { transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.card .card-foto img { transition: transform .5s cubic-bezier(.22, .61, .36, 1); }
+.card:hover .card-foto img { transform: scale(1.04); }
+.card .card-link { transition: gap .2s ease; }
+.btn { transition: background .18s ease, color .18s ease, border-color .18s ease,
+                   transform .18s ease; }
+.btn:active { transform: translateY(1px); }
+
+/* --- Acessibilidade ---------------------------------------------------------
+   O sistema operacional tem "reduzir movimento", usado por quem tem
+   enxaqueca vestibular, epilepsia fotossensivel ou enjoa com animacao.
+   Aqui todo o movimento e desligado, e o conteudo aparece inteiro.          */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  /* Variavel herdada: desliga a entrada na raiz e todo o grupo nasce
+     visivel, sem precisar repetir a lista de seletores nem usar
+     !important, que quebraria transforms legitimos (hover dos cards,
+     centralizacao do hexagono no CTA).                                  */
+  .motion { --rv-opacidade: 1; --rv-deslocamento: 0px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* O lightbox usa a mesma API de transicao das paginas. Sem isto, a animacao
+   de troca de pagina rodaria junto e a pagina inteira piscaria ao abrir uma
+   foto — so a miniatura deve se mover. */
+html.vt-lightbox::view-transition-old(root),
+html.vt-lightbox::view-transition-new(root) { animation: none; }
+::view-transition-group(foto-ativa) { animation-duration: .35s; }
+
+/* Evita o pulo lateral quando o lightbox tira a barra de rolagem. */
+html { scrollbar-gutter: stable; }

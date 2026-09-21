@@ -52,6 +52,7 @@ O arquivo oficial entrou como `assets/img/originais/logo-primor.png`
 |---|---|
 | `assets/img/logo-primor.webp` | header, fundo claro |
 | `assets/img/logo-primor-branca.webp` | rodape, fundo preto |
+| `assets/img/favicon-32.png` e `-180.png` | icone da aba, recortado do hexagono |
 
 O script tira o matte branco (alpha pelo afastamento do branco, desfazendo a
 composicao), recorta no conteudo e reduz para 400 px. A versao branca clareia
@@ -188,6 +189,57 @@ Nunca presumir a qual area cada foto pertence. Ja deu errado antes (planta baixa
 dentro da galeria de piscina). Com o `catalogo.csv` preenchido, preencher a
 constante `window.FOTOS` no fim do `index.html` de cada vitrine. Enquanto
 estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pronta.
+
+## Movimento
+
+Tudo depende da classe `.motion` no `<html>`, posta por um script inline no
+`<head>`. **Sem JavaScript a classe nunca entra e a pagina aparece inteira,
+estatica** — nunca em branco esperando um script que falhou.
+
+| O que | Onde | Termo |
+|---|---|---|
+| Entrada no scroll | `motion.js` + `primor.css` | IntersectionObserver |
+| Header que encolhe (104 -> 72 px) | `motion.js` + `primor.css` | shrink-on-scroll |
+| Zoom lento na capa das vitrines | `vitrine.css` | Ken Burns |
+| Transicao entre paginas | `@view-transition` em `primor.css` | View Transitions API |
+| Miniatura que vira foto no lightbox | `galeria.js` | shared element transition |
+| Legenda da galeria no hover | `vitrine.css` | so em `@media (hover: hover)` |
+
+Peso somado: **36 KB**, sem nenhuma biblioteca.
+
+### Regras que o codigo segue
+
+- **`prefers-reduced-motion`**: desliga tudo. A variavel `--rv-opacidade` e
+  herdada da raiz, entao o grupo inteiro nasce visivel sem repetir a lista de
+  seletores nem usar `!important` — que quebraria transforms legitimos.
+- **So `transform` e `opacity`** nas animacoes de lista. A unica excecao e a
+  altura do header, documentada no CSS: e um elemento so, uma vez por mudanca
+  de direcao do scroll, e nao ha como falsear com transform sem deixar uma
+  faixa vazia.
+- **Nada animado acima da dobra.** O que ja esta na tela ao abrir aparece sem
+  animar. Medido: LCP 420 ms na home e 456 ms na vitrine, CLS 0.
+- **`:where()` na lista de seletores.** Sem isso `.motion .secao .filete`
+  (0,3,0) venceria `.motion .visivel` (0,2,0) e o elemento receberia a classe
+  mas continuaria invisivel.
+- **Varredura de seguranca.** O IntersectionObserver so avisa quando o estado
+  de intersecao MUDA. Num salto — link de ancora, recarregar no meio da
+  pagina — o elemento vai de "abaixo da tela" direto para "acima" sem nunca
+  intersectar, e o conteudo ficaria preso invisivel. Uma varredura limitada ao
+  que falta, no maximo a cada 250 ms, cobre o caso.
+- **Sem `backdrop-filter` no header.** Com a altura animando, o blur recompoe
+  a cada quadro e deixa um fantasma da logo no tamanho antigo.
+
+### Testes
+
+`tools/testa_movimento.py` cobre, nas tres paginas: salto instantaneo ao fim,
+scroll gradual, header encolhendo e voltando, ausencia de erro de JavaScript,
+pagina sem JavaScript e `prefers-reduced-motion`. Criterio: **nenhum elemento
+pode ficar com `opacity: 0`** ao fim de cada cenario.
+
+```bash
+python3 -m http.server 8099 &
+python3 tools/testa_movimento.py
+```
 
 ## Estado
 

@@ -21,6 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
 <link rel="stylesheet" href="/assets/css/primor.css">
 
 <style>
@@ -117,6 +119,9 @@
   .sobre-grid p { color: var(--cinza-600); font-size: 16px; margin: 0 0 18px; }
   .sobre-grid p:last-child { margin-bottom: 0; }
 </style>
+<script>/* Marca que ha JavaScript: sem esta classe o CSS de movimento
+   nao se aplica e a pagina aparece inteira, estatica. */
+document.documentElement.classList.add("motion");</script>
 </head>
 <body>
 
@@ -386,6 +391,8 @@
   "description": "Incorporadora e construtora de empreendimentos residenciais em Itacimirim, Litoral Norte da Bahia, atuante desde 2015."
 }
 </script>
+
+<script src="/assets/js/motion.js" defer></script>
 
 </body>
 </html>

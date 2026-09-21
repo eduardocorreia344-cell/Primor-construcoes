@@ -21,13 +21,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
 <link rel="stylesheet" href="/assets/css/primor.css">
 <link rel="stylesheet" href="/assets/css/vitrine.css">
 <link rel="preload" as="image" fetchpriority="high" href="/paraiso-da-lagoa/fotos/003.webp">
 
 <style>
-  .hero-vitrine { background-image: url("/paraiso-da-lagoa/fotos/003.webp"); }
+  .hero-vitrine { --capa: url("/paraiso-da-lagoa/fotos/003.webp"); }
 </style>
+<script>/* Marca que ha JavaScript: sem esta classe o CSS de movimento
+   nao se aplica e a pagina aparece inteira, estatica. */
+document.documentElement.classList.add("motion");</script>
 </head>
 <body>
 
@@ -281,6 +286,7 @@
       }
   ];
 </script>
+<script src="/assets/js/motion.js" defer></script>
 <script src="/assets/js/galeria.js" defer></script>
 
 <script type="application/ld+json">

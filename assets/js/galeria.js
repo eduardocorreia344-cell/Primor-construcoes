@@ -31,6 +31,9 @@
     grade.appendChild(b);
   });
 
+  // motion.js monta a entrada no scroll destes cards, que nao existiam no HTML.
+  document.dispatchEvent(new CustomEvent("galeria:pronta"));
+
   // --- Lightbox ----------------------------------------------------------
   var atual = 0;
   var caixa = document.createElement("div");
@@ -58,7 +61,48 @@
     legenda.hidden = !foto.legenda;
   }
 
-  function abrir(i) {
+  var reduzido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // startViewTransition deixa o navegador desenhar o caminho entre dois
+  // estados do DOM. Aqui: a miniatura "cresce" ate virar a foto grande.
+  var morph = typeof document.startViewTransition === "function" && !reduzido;
+
+  /* Carrega a foto cheia ANTES de animar: sem isso o navegador fotografa o
+     estado final com a imagem ainda vazia e o morph termina em branco.
+     O timeout garante que um arquivo lento nunca prenda o clique. */
+  function precarregar(src) {
+    return new Promise(function (resolve) {
+      var concluido = false;
+      function fim() { if (!concluido) { concluido = true; resolve(); } }
+      var pre = new Image();
+      pre.onload = fim;
+      pre.onerror = fim;
+      pre.src = src;
+      setTimeout(fim, 450);
+    });
+  }
+
+  function miniaturaDe(i) {
+    var item = grade.children[i];
+    return item ? item.querySelector("img") : null;
+  }
+
+  /* O nome so pode existir num elemento por vez: sai da miniatura e entra
+     na foto grande dentro do callback, que e onde o DOM muda. */
+  function transicionar(deA, paraB, mudanca) {
+    if (deA) deA.style.viewTransitionName = "foto-ativa";
+    document.documentElement.classList.add("vt-lightbox");
+    var t = document.startViewTransition(function () {
+      if (deA) deA.style.viewTransitionName = "";
+      if (paraB) paraB.style.viewTransitionName = "foto-ativa";
+      mudanca();
+    });
+    t.finished.catch(function () {}).then(function () {
+      if (paraB) paraB.style.viewTransitionName = "";
+      document.documentElement.classList.remove("vt-lightbox");
+    });
+  }
+
+  function abrirAgora(i) {
     abridor = document.activeElement;
     mostrar(i);
     caixa.hidden = false;
@@ -66,13 +110,25 @@
     caixa.querySelector(".lb-fechar").focus();
   }
 
-  function fechar() {
+  function fecharAgora() {
     caixa.hidden = true;
     // removeAttribute, nao src = "": src vazio faz alguns navegadores
     // requisitarem a propria URL da pagina.
     img.removeAttribute("src");
     document.body.style.overflow = "";
     if (abridor) abridor.focus();
+  }
+
+  function abrir(i) {
+    precarregar(fotos[i].full).then(function () {
+      if (!morph) return abrirAgora(i);
+      transicionar(miniaturaDe(i), img, function () { abrirAgora(i); });
+    });
+  }
+
+  function fechar() {
+    if (!morph) return fecharAgora();
+    transicionar(img, miniaturaDe(atual), fecharAgora);
   }
 
   grade.addEventListener("click", function (e) {
