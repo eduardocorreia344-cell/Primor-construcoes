@@ -270,7 +270,10 @@ positivo quando o texto ganhou acento.
 
 - Razao social da imobiliaria responsavel pela comercializacao
 - Originais em alta das fotos da galeria: as do Drive sao screenshots de 1170 px
-- Capa do card do Ilha Bela: hoje e a logo, a pedido; foto converte mais
+- Capa do card do Ilha Bela: e a logo oficial do empreendimento, a pedido.
+  A fonte tem 696 px, entao ela sobe cerca de 1,3x na tela; um arquivo
+  maior deixaria mais nitido. Foto do empreendimento converteria mais
+  que logo, mas a escolha e do Gabriel.
 - Versao horizontal do lockup da logo, que permitiria um header mais baixo
 - CNPJ das SPEs do Paraiso da Enseada e do Paraiso da Lagoa, se existirem
 
