@@ -63,16 +63,20 @@
 
   function registrar(elementos) {
     var alturaTela = window.innerHeight || 0;
-    var grupos = {};
+    // Agrupa pelo elemento pai, nao pelo nome da classe: irmaos com classe
+    // diferente — o marco em destaque da linha do tempo, por exemplo —
+    // cairiam em grupos separados e entrariam fora de ordem.
+    var grupos = new Map();
 
     Array.prototype.forEach.call(elementos, function (el) {
       if (el.dataset.revelado) return;
       el.dataset.revelado = "1";
 
-      // Escalona os irmaos do mesmo grupo: 0, 1, 2... ate 5 (300ms).
-      var chave = el.className + "|" + (el.parentNode ? el.parentNode.className : "");
-      grupos[chave] = (grupos[chave] || 0) + 1;
-      el.style.setProperty("--atraso", Math.min(grupos[chave] - 1, 5));
+      // Escalona os irmaos: 0, 1, 2... ate 5 (300ms).
+      var pai = el.parentNode;
+      var n = (grupos.get(pai) || 0) + 1;
+      grupos.set(pai, n);
+      el.style.setProperty("--atraso", Math.min(n - 1, 5));
 
       if (!observador) { revelar(el, true); return; }
 

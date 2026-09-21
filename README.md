@@ -313,6 +313,18 @@ O filtro de linguagem de oferta do `checar_pendencias.sh` tambem foi acentuado:
 ele excluia "nao ha unidades disponiveis" sem acento e passou a acusar falso
 positivo quando o texto ganhou acento.
 
+### Contradicao em aberto: unidades da Fase 01 do Ilha Bela
+
+Duas informacoes recebidas nao fecham:
+
+- "60 ilhabela fase 1", discriminado dentro do total de 108 (16 + 32 + 60).
+- "A fase 1 tem 4 unidades, quase 100% vendidas".
+
+Com 4, o total entregue seria 52, nao 108. O numero e o ano da Fase 01 estao
+marcados como pendentes na linha do tempo, e o total de 108 segue publicado
+como foi discriminado. Confirmar antes de publicar: um numero de unidades
+entregues errado no site de uma incorporadora e problema de credibilidade.
+
 ### O que ainda pode melhorar
 
 - Razao social da imobiliaria responsavel pela comercializacao
