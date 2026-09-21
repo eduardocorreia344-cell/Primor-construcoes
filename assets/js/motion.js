@@ -18,7 +18,7 @@
     ".secao .filete", ".titulo-secao", ".marco", ".card", ".depoimento",
     ".ficha > div", ".texto-institucional p", ".sobre-grid > div",
     ".galeria-item", ".cta-ilhabela h2", ".cta-ilhabela p", ".cta-ilhabela .btn",
-    ".secao-cinza > .wrap > p"
+    ".secao-cinza > .wrap > p", ".cadastro-caixa"
   ].join(",");
 
   var pendentes = [];

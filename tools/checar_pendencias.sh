@@ -34,6 +34,17 @@ else
 fi
 
 echo
+echo "== Destino do formulario de cadastro =="
+if grep -q 'window.CADASTRO_ENDPOINT = ""' index.html; then
+  echo "  ERRO: window.CADASTRO_ENDPOINT esta vazio em index.html."
+  echo "  O formulario recusa o envio nesse estado. Ver 'Formulario de"
+  echo "  cadastro' no README para configurar em poucos minutos."
+  falhou=1
+else
+  echo "  configurado. ok"
+fi
+
+echo
 echo "== Logo oficial da PRIMOR =="
 if ls assets/img/logo-primor.* >/dev/null 2>&1; then
   echo "  presente. ok"

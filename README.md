@@ -190,6 +190,53 @@ dentro da galeria de piscina). Com o `catalogo.csv` preenchido, preencher a
 constante `window.FOTOS` no fim do `index.html` de cada vitrine. Enquanto
 estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pronta.
 
+## Formulario de cadastro
+
+Secao `#cadastro` na home: "Cadastre-se e receba novidades dos proximos
+empreendimentos". Nome, e-mail, WhatsApp opcional e consentimento.
+
+**Falta uma coisa para funcionar: o destino.** Em `index.html`,
+`window.CADASTRO_ENDPOINT` esta vazio, e `tools/checar_pendencias.sh`
+bloqueia a publicacao enquanto estiver. Com ele vazio o formulario recusa o
+envio com mensagem clara — nunca finge sucesso e perde o cadastro.
+
+### Como configurar, em 3 minutos
+
+1. Criar conta em `formspree.io` (o plano gratuito serve para comecar).
+2. Criar um formulario novo. Ele gera um endereco no formato
+   `https://formspree.io/f/abcdwxyz`.
+3. Colar esse endereco em `window.CADASTRO_ENDPOINT`, em `index.html`.
+4. Commitar. Os cadastros passam a chegar por e-mail e ficam na conta.
+
+Nao e preciso mudar mais nada: o formulario ja envia `FormData` com
+`Accept: application/json`, que e o formato que o Formspree espera. Serve
+igual para Basin ou Web3Forms — so trocar o endereco.
+
+Alternativa sem servico externo: um Google Forms com os mesmos campos, que
+grava numa planilha. Da mais trabalho para ligar e nao devolve resposta em
+JSON, entao o estado de sucesso na tela fica menos confiavel.
+
+### O que o formulario ja faz
+
+- **Validacao antes de enviar**: nome com 2 ou mais caracteres, e-mail com
+  formato plausivel, consentimento marcado. Campo invalido ganha borda
+  vermelha, mensagem propria e recebe o foco.
+- **Armadilha de robo** (*honeypot*): um campo escondido fora da tela, com
+  `tabindex="-1"`. Pessoa nenhuma preenche; robo de spam preenche quase
+  sempre. Preenchido, a tela responde como sucesso e nada e enviado.
+  Fica fora da tela em vez de `display: none`, que parte dos robos detecta.
+- **Estados visiveis**: enviando, sucesso e erro, num `aria-live` para
+  leitor de tela anunciar. Em erro o formulario **nao** e limpo, para nao
+  obrigar a redigitar.
+- **Consentimento explicito** com texto de finalidade e direito de remocao,
+  como manda a LGPD. Quem recebe os dados precisa honrar o pedido de
+  remocao — isso e processo, nao codigo.
+
+`tools/testa_formulario.py` cobre os oito cenarios: envio vazio, e-mail
+malformado, falta de consentimento, destino vazio, envio bem-sucedido, erro
+do servidor, armadilha de robo e o campo escondido fora do alcance do
+teclado.
+
 ## Movimento
 
 Tudo depende da classe `.motion` no `<html>`, posta por um script inline no

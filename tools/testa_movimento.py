@@ -14,7 +14,7 @@ BASE = "http://localhost:8099"
 EXE = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 SEL = (".secao .filete,.titulo-secao,.marco,.card,.depoimento,.ficha > div,"
        ".texto-institucional p,.sobre-grid > div,.galeria-item,.cta-ilhabela h2,"
-       ".cta-ilhabela p,.cta-ilhabela .btn,.secao-cinza > .wrap > p")
+       ".cta-ilhabela p,.cta-ilhabela .btn,.secao-cinza > .wrap > p,.cadastro-caixa")
 # O site tem scroll-behavior: smooth; scrollTo animado mediria no meio do movimento.
 IR = "(y) => window.scrollTo({top: y, behavior: 'instant'})"
 

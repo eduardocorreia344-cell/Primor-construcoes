@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PRIMOR Empreendimentos — Incorporadora em Itacimirim, Bahia</title>
-<meta name="description" content="Incorporadora atuante em Itacimirim, Litoral Norte da Bahia, desde 2015. Paraíso da Enseada e Paraíso da Lagoa entregues, 48 unidades. Ilha Bela Itacimirim Villages em vendas.">
+<meta name="description" content="Incorporadora atuante em Itacimirim, Litoral Norte da Bahia, desde 2015. Três empreendimentos e 108 unidades entregues. Ilha Bela Itacimirim Villages em vendas.">
 <link rel="canonical" href="https://primor-construcoes.vercel.app/">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="PRIMOR Empreendimentos">
 <meta property="og:title" content="PRIMOR Empreendimentos — Incorporadora em Itacimirim, Bahia">
-<meta property="og:description" content="Desde 2015 em Itacimirim. Três empreendimentos, 48 unidades entregues e um em vendas.">
+<meta property="og:description" content="Desde 2015 em Itacimirim. Três empreendimentos, 108 unidades entregues e um em vendas.">
 <meta property="og:url" content="https://primor-construcoes.vercel.app/">
 <!-- CONFIRMAR: og:image precisa ser foto real de empreendimento (1200x630), não a logo. -->
 <meta property="og:image" content="https://primor-construcoes.vercel.app/assets/img/og-primor.jpg">
@@ -142,6 +142,7 @@ document.documentElement.classList.add("motion");</script>
     <nav>
       <a href="#empreendimentos" class="oculta-mobile">Empreendimentos</a>
       <a href="#depoimentos" class="oculta-mobile">Depoimentos</a>
+      <a href="#cadastro" class="oculta-mobile">Cadastre-se</a>
       <a class="btn btn-primario btn-compacto"
          href="https://wa.me/5571996192271?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20PRIMOR%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20o%20Ilha%20Bela%20Itacimirim%20Villages."
          target="_blank" rel="noopener">Falar com um corretor</a>
@@ -156,8 +157,8 @@ document.documentElement.classList.add("motion");</script>
       <p class="eyebrow eyebrow-claro">Incorporadora &middot; Itacimirim, Bahia</p>
       <h1>Dez anos construindo em <em>Itacimirim</em>.</h1>
       <p class="lead">
-        Desde 2015. Dois empreendimentos entregues e integralmente comercializados,
-        48 unidades. Um em vendas.
+        Desde 2015. Três empreendimentos e 108 unidades entregues.
+        Dois integralmente comercializados, um em vendas.
       </p>
       <div class="acoes">
         <a class="btn btn-primario" href="/ilhabela/">Conhecer o Ilha Bela</a>
@@ -167,8 +168,8 @@ document.documentElement.classList.add("motion");</script>
       <dl class="numeros">
         <div><dt>2015</dt><dd>Ano de fundação</dd></div>
         <div><dt>3</dt><dd>Empreendimentos</dd></div>
-        <div><dt>48</dt><dd>Unidades entregues</dd></div>
-        <div><dt>100%</dt><dd>Comercializados</dd></div>
+        <div><dt>108</dt><dd>Unidades entregues</dd></div>
+        <div><dt>2027</dt><dd>Próxima entrega</dd></div>
       </dl>
     </div>
   </section>
@@ -189,7 +190,7 @@ document.documentElement.classList.add("motion");</script>
           <b>2021</b><span>Paraíso da Lagoa</span><small>32 unidades &middot; entregue</small>
         </div>
         <div class="marco ativo">
-          <b>2027</b><span>Ilha Bela &mdash; Fase 02</span><small>em obras &middot; entrega abril/2027</small>
+          <b>2027</b><span>Ilha Bela &mdash; Fase 02</span><small>60 entregues &middot; Fase 02 em obras</small>
         </div>
       </div>
     </div>
@@ -310,6 +311,57 @@ document.documentElement.classList.add("motion");</script>
     </div>
   </section>
 
+
+  <section class="secao secao-cinza" id="cadastro">
+    <div class="wrap cadastro-grid">
+      <div>
+        <hr class="filete">
+        <h2 class="titulo-secao" style="margin-bottom:16px;">Cadastre-se e receba novidades<br>dos próximos empreendimentos</h2>
+        <p>
+          A PRIMOR lança em Itacimirim desde 2015. Deixe seu contato e seja avisado
+          quando o próximo empreendimento for anunciado, antes do lançamento público.
+        </p>
+      </div>
+
+      <form class="cadastro-caixa" data-cadastro novalidate>
+        <div class="campo">
+          <label for="cad-nome">Nome</label>
+          <input type="text" id="cad-nome" name="nome" autocomplete="name" required>
+          <span class="erro">Informe seu nome.</span>
+        </div>
+
+        <div class="campo">
+          <label for="cad-email">E-mail</label>
+          <input type="email" id="cad-email" name="email" autocomplete="email" required>
+          <span class="erro">Informe um e-mail válido.</span>
+        </div>
+
+        <div class="campo">
+          <label for="cad-telefone">WhatsApp <span class="opcional">(opcional)</span></label>
+          <input type="tel" id="cad-telefone" name="telefone" autocomplete="tel"
+                 inputmode="tel" placeholder="(71) 99999-9999">
+        </div>
+
+        <!-- Armadilha de robo: fica fora da tela e ninguem preenche a mao. -->
+        <div class="armadilha" aria-hidden="true">
+          <label for="cad-site">Deixe em branco</label>
+          <input type="text" id="cad-site" name="site" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="consentimento" data-invalido="false">
+          <input type="checkbox" id="cad-aceite" name="aceite" value="sim">
+          <label for="cad-aceite">
+            Autorizo a PRIMOR Empreendimentos a usar meus dados para me avisar sobre
+            novos empreendimentos. Posso pedir a remoção a qualquer momento.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primario">Quero ser avisado</button>
+        <p class="cadastro-estado" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
   <section class="secao" id="sobre">
     <div class="wrap sobre-grid">
       <div>
@@ -318,10 +370,10 @@ document.documentElement.classList.add("motion");</script>
       </div>
       <div>
         <p>
-          A PRIMOR nasceu em 2015 e desde então concluiu e entregou dois condomínios:
-          o Paraíso da Enseada e o Paraíso da Lagoa, ambos 100% vendidos. O terceiro está
-          em obra em Itacimirim, no Litoral Norte da Bahia, com entrega prevista para
-          abril de 2027.
+          A PRIMOR nasceu em 2015 e desde então entregou 108 unidades: os condomínios
+          Paraíso da Enseada e Paraíso da Lagoa, ambos concluídos e 100% vendidos, e a
+          Fase 01 do Ilha Bela Itacimirim Villages. A Fase 02 está em obra em Itacimirim,
+          no Litoral Norte da Bahia, com entrega prevista para abril de 2027.
         </p>
         <p>
           São projetos com linguagens diferentes entre si &mdash; do rústico ao contemporâneo
@@ -385,7 +437,16 @@ document.documentElement.classList.add("motion");</script>
   </div>
 </footer>
 
-<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById("ano").textContent = new Date().getFullYear();
+
+  /* CONFIRMAR: destino do formulario de cadastro. Enquanto estiver vazio,
+     o formulario recusa o envio e checar_pendencias.sh bloqueia a
+     publicacao — melhor do que fingir sucesso e perder o cadastro.
+     Ver "Formulario de cadastro" no README. */
+  window.CADASTRO_ENDPOINT = "";
+</script>
+<script src="/assets/js/formulario.js" defer></script>
 
 <script type="application/ld+json">
 {
