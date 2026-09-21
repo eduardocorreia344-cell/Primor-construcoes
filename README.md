@@ -313,17 +313,20 @@ O filtro de linguagem de oferta do `checar_pendencias.sh` tambem foi acentuado:
 ele excluia "nao ha unidades disponiveis" sem acento e passou a acusar falso
 positivo quando o texto ganhou acento.
 
-### Contradicao em aberto: unidades da Fase 01 do Ilha Bela
+### Unidades entregues
 
-Duas informacoes recebidas nao fecham:
+| Empreendimento | Unidades | Situacao |
+|---|---|---|
+| Paraiso da Enseada | 16 | Entregue em 2018, 100% vendido desde 2020 |
+| Paraiso da Lagoa | 32 | Entregue em 2021, 100% vendido |
+| Ilha Bela — Fase 01 | 60 | Entregue em 2026, quase 100% vendida (4 disponiveis) |
+| **Total entregue** | **108** | |
+| Ilha Bela — Fase 02 | — | Em obras, entrega abril/2027, disponivel |
 
-- "60 ilhabela fase 1", discriminado dentro do total de 108 (16 + 32 + 60).
-- "A fase 1 tem 4 unidades, quase 100% vendidas".
-
-Com 4, o total entregue seria 52, nao 108. O numero e o ano da Fase 01 estao
-marcados como pendentes na linha do tempo, e o total de 108 segue publicado
-como foi discriminado. Confirmar antes de publicar: um numero de unidades
-entregues errado no site de uma incorporadora e problema de credibilidade.
+As 4 unidades ainda disponiveis da Fase 01 **nao** aparecem no site. Numero
+de escassez so funciona se for mantido atualizado; desatualizado, vira o
+oposto. A linha do tempo diz "quase 100% vendida", que continua verdadeiro
+sem depender de manutencao.
 
 ### O que ainda pode melhorar
 
