@@ -202,6 +202,32 @@ eventual mudanca de IP do Vercel nao derruba o site — no maximo o
 redirecionamento do apex. Quem decide a direcao e a configuracao de dominios
 do Vercel, nao o `vercel.json`.
 
+### Onde fica o DNS
+
+**No Cloudflare, nao no registro.br.** O registro.br so guarda a delegacao
+(`curt.ns.cloudflare.com` e `janet.ns.cloudflare.com`); toda a zona e editada
+no painel do Cloudflare. Nunca clicar em "Utilizar DNS do Registro.br" no
+painel do registro.br: isso tira o dominio do Cloudflare e derruba o site.
+
+Registros, conforme o Vercel indica no painel de Domains:
+
+| Tipo | Nome | Valor | Proxy |
+|---|---|---|---|
+| CNAME | `@` | `13985fdcf3ce3e1c.vercel-dns-017.com` | **DNS only** |
+| CNAME | `www` | o que o Vercel mostrar para esse host | **DNS only** |
+
+CNAME no apex so funciona porque o Cloudflare achata (*CNAME flattening*);
+no DNS puro isso seria invalido.
+
+**O proxy do Cloudflare tem que ficar desligado — nuvem cinza, "DNS only".**
+Com a nuvem laranja o Cloudflare responde no lugar do Vercel: o Vercel nunca
+valida o dominio, e a combinacao dos dois certificados costuma dar laco de
+redirecionamento. O proprio painel do Vercel exibe `Proxy: Disabled` na
+recomendacao.
+
+Os valores `cname.vercel-dns.com` e o IP `76.76.21.21` sao os antigos.
+Continuam funcionando, mas o Vercel recomenda o CNAME unico acima.
+
 Todo `canonical`, `og:url`, `og:image` e o JSON-LD apontam para o dominio.
 `tools/checar_pendencias.sh` falha se uma URL de `vercel.app` voltar ao HTML:
 canonical apontando para o endereco temporario faz o Google consolidar nele
