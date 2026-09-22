@@ -204,29 +204,31 @@ do Vercel, nao o `vercel.json`.
 
 ### Onde fica o DNS
 
-**No Cloudflare, nao no registro.br.** O registro.br so guarda a delegacao
-(`curt.ns.cloudflare.com` e `janet.ns.cloudflare.com`); toda a zona e editada
-no painel do Cloudflare. Nunca clicar em "Utilizar DNS do Registro.br" no
-painel do registro.br: isso tira o dominio do Cloudflare e derruba o site.
+**No registro.br**, no editor de zona. O dominio ja esteve no Cloudflare e
+foi trazido de volta.
 
-Registros, conforme o Vercel indica no painel de Domains:
+| Tipo | Nome | Valor |
+|---|---|---|
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
 
-| Tipo | Nome | Valor | Proxy |
-|---|---|---|---|
-| CNAME | `@` | `13985fdcf3ce3e1c.vercel-dns-017.com` | **DNS only** |
-| CNAME | `www` | o que o Vercel mostrar para esse host | **DNS only** |
+O apex precisa de **registro A**, nao CNAME: CNAME na raiz do dominio e
+invalido no DNS padrao (RFC 1034). O Cloudflare conseguia porque achata o
+CNAME (*flattening*); o DNS do registro.br nao faz isso. Por isso o valor
+unico que o Vercel sugeria enquanto o dominio estava no Cloudflare
+(`13985fdcf3ce3e1c.vercel-dns-017.com` no `@`) nao serve aqui.
 
-CNAME no apex so funciona porque o Cloudflare achata (*CNAME flattening*);
-no DNS puro isso seria invalido.
+O `A` no apex existe so para o Vercel poder responder o redirecionamento
+308 para o `www`. Quem serve o site e o CNAME do `www`.
 
-**O proxy do Cloudflare tem que ficar desligado — nuvem cinza, "DNS only".**
-Com a nuvem laranja o Cloudflare responde no lugar do Vercel: o Vercel nunca
-valida o dominio, e a combinacao dos dois certificados costuma dar laco de
-redirecionamento. O proprio painel do Vercel exibe `Proxy: Disabled` na
-recomendacao.
+O painel de Domains do Vercel reconhece o provedor de DNS e ajusta a
+recomendacao. Depois que a delegacao propagar, conferir la e preferir o que
+ele mostrar.
 
-Os valores `cname.vercel-dns.com` e o IP `76.76.21.21` sao os antigos.
-Continuam funcionando, mas o Vercel recomenda o CNAME unico acima.
+**Atencao ao e-mail.** Trocar de provedor de DNS zera a zona inteira,
+inclusive os registros MX. Se houver e-mail em `@primorconstrucoes.com.br`,
+os MX precisam ser recriados junto — senao o e-mail para de chegar sem
+nenhum aviso.
 
 Todo `canonical`, `og:url`, `og:image` e o JSON-LD apontam para o dominio.
 `tools/checar_pendencias.sh` falha se uma URL de `vercel.app` voltar ao HTML:
