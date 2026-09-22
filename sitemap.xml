@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /ilhabela/ fica fora de proposito: aquele caminho e um rewrite da landing
+     do empreendimento, e a pagina declara canonical para o dominio proprio
+     dela. Lista-la aqui seria pedir ao Google para indexar um endereco que a
+     propria pagina diz nao ser o dela. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://primorconstrucoes.com.br/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://primorconstrucoes.com.br/paraiso-da-enseada/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://primorconstrucoes.com.br/paraiso-da-lagoa/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>

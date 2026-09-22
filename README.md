@@ -190,6 +190,21 @@ dentro da galeria de piscina). Com o `catalogo.csv` preenchido, preencher a
 constante `window.FOTOS` no fim do `index.html` de cada vitrine. Enquanto
 estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pronta.
 
+## Dominio
+
+O site e servido em **primorconstrucoes.com.br**. O apex e o endereco
+canonico; `www` redireciona para ele. Quem decide isso e a configuracao de
+dominios do Vercel, nao o `vercel.json`.
+
+Todo `canonical`, `og:url`, `og:image` e o JSON-LD apontam para o dominio.
+`tools/checar_pendencias.sh` falha se uma URL de `vercel.app` voltar ao HTML:
+canonical apontando para o endereco temporario faz o Google consolidar nele
+em vez de no dominio, que e o oposto do motivo de ter comprado o dominio.
+
+`sitemap.xml` lista as tres paginas proprias. `/ilhabela/` fica fora de
+proposito — e um rewrite da landing do empreendimento, que declara canonical
+para o dominio dela.
+
 ## Formulario de cadastro
 
 Secao `#cadastro` na home: "Cadastre-se e receba novidades dos proximos

@@ -34,6 +34,17 @@ else
 fi
 
 echo
+echo "== Endereco canonico aponta para o dominio proprio =="
+if grep -rn 'vercel\.app' --include="*.html" . | grep -v 'ilhabela-one'; then
+  echo "  ERRO: ha URL de vercel.app no HTML. Canonical e Open Graph precisam"
+  echo "  apontar para primorconstrucoes.com.br, senao o Google consolida o"
+  echo "  endereco temporario em vez do dominio."
+  falhou=1
+else
+  echo "  nenhuma. ok"
+fi
+
+echo
 echo "== Destino do formulario de cadastro =="
 if grep -q 'window.CADASTRO_ENDPOINT = ""' index.html; then
   echo "  ERRO: window.CADASTRO_ENDPOINT esta vazio em index.html."
