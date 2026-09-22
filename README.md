@@ -192,9 +192,15 @@ estiver vazia, a galeria mostra um aviso amarelo em vez de fingir que esta pront
 
 ## Dominio
 
-O site e servido em **primorconstrucoes.com.br**. O apex e o endereco
-canonico; `www` redireciona para ele. Quem decide isso e a configuracao de
-dominios do Vercel, nao o `vercel.json`.
+O site e servido em **www.primorconstrucoes.com.br**, que e o host
+canonico. O apex `primorconstrucoes.com.br` redireciona para ele.
+
+Essa direcao e o padrao do Vercel ("Redirect apex domains to www") e tem
+motivo tecnico: o apex nao pode ser um CNAME por limitacao de DNS, entao
+depende de um registro A com IP fixo. Servindo pelo `www`, que e CNAME, uma
+eventual mudanca de IP do Vercel nao derruba o site — no maximo o
+redirecionamento do apex. Quem decide a direcao e a configuracao de dominios
+do Vercel, nao o `vercel.json`.
 
 Todo `canonical`, `og:url`, `og:image` e o JSON-LD apontam para o dominio.
 `tools/checar_pendencias.sh` falha se uma URL de `vercel.app` voltar ao HTML:

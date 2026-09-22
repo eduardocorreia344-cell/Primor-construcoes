@@ -5,19 +5,19 @@
      propria pagina diz nao ser o dela. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://primorconstrucoes.com.br/</loc>
+    <loc>https://www.primorconstrucoes.com.br/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primorconstrucoes.com.br/paraiso-da-enseada/</loc>
+    <loc>https://www.primorconstrucoes.com.br/paraiso-da-enseada/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://primorconstrucoes.com.br/paraiso-da-lagoa/</loc>
+    <loc>https://www.primorconstrucoes.com.br/paraiso-da-lagoa/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>

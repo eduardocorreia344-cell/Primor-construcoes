@@ -35,6 +35,13 @@ fi
 
 echo
 echo "== Endereco canonico aponta para o dominio proprio =="
+# O canonico e www.primorconstrucoes.com.br, que e o padrao do Vercel
+# (apex redireciona para www). Uma pagina apontando para o host sem www
+# teria canonical para uma URL que redireciona, e o Google pode ignora-lo.
+if grep -rn 'https://primorconstrucoes\.com\.br' --include="*.html" --include="*.xml" --include="*.txt" .; then
+  echo "  ERRO: canonical sem www. O host canonico e www.primorconstrucoes.com.br."
+  falhou=1
+fi
 if grep -rn 'vercel\.app' --include="*.html" . | grep -v 'ilhabela-one'; then
   echo "  ERRO: ha URL de vercel.app no HTML. Canonical e Open Graph precisam"
   echo "  apontar para primorconstrucoes.com.br, senao o Google consolida o"
